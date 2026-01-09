@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
-            <h2>Bienvenido: <b>{{ Auth::user()->name }}</b></h2>
+            <h2>Configuraciones del Sistema</h2>
         </div>
     </div>
 @endsection
