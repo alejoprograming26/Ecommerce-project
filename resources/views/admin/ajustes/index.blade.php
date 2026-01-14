@@ -3,6 +3,9 @@
 @section('content')
     <h2>Configuraciones del Sistema</h2>
     <hr>
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -10,10 +13,10 @@
                     <h4><b>Ajustes</b></h4>
                 </div>
                 <div class="card-body">
-                    <form action="" method="POST">
+                    <form action="{{ url('/admin/ajustes/create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -77,7 +80,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                                                 <textarea name="direccion" rows="1" id="direccion" class="form-control @error('direccion') is-invalid @enderror"
-                                                    placeholder="Direccion de la Empresa" value="{{ old('direccion') }}" required></textarea>
+                                                    placeholder="Direccion de la Empresa" required>{{ old('direccion') }}</textarea>
 
                                                 @error('direccion')
                                                     <div class="invalid-feedback" role="alert">
@@ -94,11 +97,12 @@
                                             <label for="telefono" class="form-label">Telefono (*)</label>
                                             <div class="input-group">
                                                 <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                                                <input type="text" name="telefono" id="telefono"
-                                                    class="form-control @error('telefono') is-invalid @enderror"
-                                                    placeholder="Ej: 0412 04431212" value="{{ old('telefono') }}" required>
+                                                <input type="text" name="telefonos" id="telefono"
+                                                    class="form-control @error('telefonos') is-invalid @enderror"
+                                                    placeholder="Ej: 0412 04431212" value="{{ old('telefonos') }}"
+                                                    required>
 
-                                                @error('telefono')
+                                                @error('telefonos')
                                                     <div class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </div>
@@ -156,7 +160,7 @@
                                                 <input type="text" name="pagina_web" id="pagina_web"
                                                     class="form-control @error('pagina_web') is-invalid @enderror"
                                                     placeholder="Ej: https://www.empresa.com"
-                                                    value="{{ old('pagina_web') }}" required>
+                                                    value="{{ old('pagina_web') }}">
 
                                                 @error('pagina_web')
                                                     <div class="invalid-feedback" role="alert">
@@ -168,13 +172,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="logo" class="form-label"> Logo</label>
+                                        <label for="logo" class="form-label"> Logo(*)</label>
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="bi bi-currency-exchange"></i></span>
+                                            <span class="input-group-text"><i class="bi bi-image"></i></span>
                                             <input type="file" name="logo" id="logo"
+                                                onchange="mostrarImagen(event)"
                                                 class="form-control @error('logo') is-invalid @enderror"
                                                 placeholder="Ej: https://www.empresa.com" value="{{ old('logo') }}"
                                                 required>
@@ -186,7 +191,49 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <img src="" id="preview1" class="img-fluid"
+                                        style="max-width: 200px; margin-top: 10px;">
+                                    <script>
+                                        const mostrarImagen = (e) => {
+                                            document.getElementById("preview1").src = URL.createObjectURL(e.target.files[0]);
+                                        }
+                                    </script>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <br>
+                                        <label for="imagen_login" class="form-label"> Imagen Login(*)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-camera"></i></span>
+                                            <input type="file" name="imagen_login" id="imagen_login"
+                                                onchange="mostrarImagen2(event)"
+                                                class="form-control @error('imagen_login') is-invalid @enderror"
+                                                placeholder="" value="{{ old('imagen_login') }}" required>
+
+                                            @error('imagen_login')
+                                                <div class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <img src="" id="preview2" class="img-fluid"
+                                        style="max-width: 200px; margin-top: 10px;">
+                                    <script>
+                                        const mostrarImagen2 = (e) => {
+                                            document.getElementById("preview2").src = URL.createObjectURL(e.target.files[0]);
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>
+                                    Guardar</button>
+                                <a href="{{ url('admin') }}" class="btn btn-danger"><i class="bi bi-x-circle"></i>
+                                    Cancelar</a>
                             </div>
                         </div>
                     </form>
