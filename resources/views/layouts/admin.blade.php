@@ -78,7 +78,7 @@
 
 
                         </li>
-                        <li class="sidebar-item {{ request()->is('admin/roles') ? 'active' : '' }} ">
+                        <li class="sidebar-item {{ request()->is('admin/role*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/roles') }}" class='sidebar-link'>
                                 <i class="bi bi-person-fill-lock"></i>
                                 <span>Roles</span>
@@ -89,7 +89,7 @@
 
                         <li class="sidebar-title">Ajustes</li>
 
-                        <li class="sidebar-item {{ request()->is('admin/ajustes*') ? 'active' : '' }} ">
+                        <li class="sidebar-item {{ request()->is('admin/ajuste*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/ajustes') }}" class='sidebar-link'>
                                 <i class="bi bi-gear-fill"></i>
                                 <span>Configuracion</span>
