@@ -1,59 +1,270 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛒 E-Commerce Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Un sistema de comercio electrónico moderno construido con Laravel 12, que incluye gestión de roles y permisos, panel de administración y autenticación de usuarios.
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Tabla de Contenidos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Características](#-características)
+- [Requisitos](#-requisitos)
+- [Instalación](#-instalación)
+- [Configuración](#-configuración)
+- [Uso](#-uso)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
+- [Scripts Disponibles](#-scripts-disponibles)
+- [Contribuir](#-contribuir)
+- [Licencia](#-licencia)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Características
 
-## Learning Laravel
+- 🔐 **Sistema de Autenticación** - Registro, login y gestión de usuarios con Laravel UI
+- 👥 **Gestión de Roles y Permisos** - Control de acceso basado en roles usando Spatie Permission
+- 🎛️ **Panel de Administración** - Interfaz completa para gestionar el sistema
+- ⚙️ **Configuración de Ajustes** - Sistema flexible de configuración de la aplicación
+- 🎨 **Interfaz Moderna** - Diseño responsivo con Bootstrap 5 y Tailwind CSS
+- 🚀 **Desarrollo Rápido** - Hot Module Replacement (HMR) con Vite
+- 📦 **Base de Datos SQLite** - Configuración por defecto para desarrollo rápido
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🔧 Requisitos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Antes de comenzar, asegúrate de tener instalado:
 
-## Laravel Sponsors
+- **PHP** >= 8.2
+- **Composer** >= 2.0
+- **Node.js** >= 18.x
+- **NPM** >= 9.x
+- **SQLite** (o MySQL/PostgreSQL si prefieres)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 📥 Instalación
 
-### Premium Partners
+### Instalación Rápida
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Clona el repositorio y ejecuta el script de configuración automática:
 
-## Contributing
+```bash
+# Clonar el repositorio
+git clone https://github.com/alejoprograming26/Ecommerce-project.git
+cd ecommerce
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Instalar dependencias y configurar el proyecto
+composer run setup
+```
 
-## Code of Conduct
+### Instalación Manual
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Si prefieres instalar paso a paso:
 
-## Security Vulnerabilities
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/alejoprograming26/Ecommerce-project.git
+cd ecommerce
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 2. Instalar dependencias de PHP
+composer install
 
-## License
+# 3. Copiar el archivo de configuración
+copy .env.example .env
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 4. Generar la clave de aplicación
+php artisan key:generate
+
+# 5. Crear la base de datos SQLite (si no existe)
+type nul > database\database.sqlite
+
+# 6. Ejecutar las migraciones
+php artisan migrate
+
+# 7. Instalar dependencias de Node.js
+npm install
+
+# 8. Compilar los assets
+npm run build
+```
+
+## ⚙️ Configuración
+
+### Base de Datos
+
+Por defecto, el proyecto usa SQLite. Si deseas usar MySQL o PostgreSQL, edita el archivo `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_base_datos
+DB_USERNAME=usuario
+DB_PASSWORD=contraseña
+```
+
+### Configuración de Roles
+
+El proyecto utiliza [Spatie Laravel Permission](https://spatie.be/docs/laravel-permission) para la gestión de roles. Después de migrar, puedes crear roles y permisos:
+
+```bash
+php artisan tinker
+```
+
+```php
+// Crear roles
+use Spatie\Permission\Models\Role;
+Role::create(['name' => 'admin']);
+Role::create(['name' => 'vendedor']);
+Role::create(['name' => 'cliente']);
+
+// Asignar rol a un usuario
+$user = App\Models\User::find(1);
+$user->assignRole('admin');
+```
+
+## 🚀 Uso
+
+### Modo Desarrollo
+
+Para iniciar el servidor de desarrollo con todas las herramientas necesarias:
+
+```bash
+# Inicia el servidor, queue, logs y Vite simultáneamente
+composer run dev
+```
+
+Este comando ejecuta:
+- ✅ Servidor Laravel en `http://localhost:8000`
+- ✅ Queue listener para trabajos en segundo plano
+- ✅ Pail para logs en tiempo real
+- ✅ Vite dev server para HMR
+
+### Comandos Individuales
+
+Si prefieres ejecutar los servicios por separado:
+
+```bash
+# Servidor de desarrollo
+php artisan serve
+
+# Compilar assets en modo desarrollo
+npm run dev
+
+# Compilar assets para producción
+npm run build
+
+# Ejecutar tests
+composer run test
+# o
+php artisan test
+```
+
+## 📁 Estructura del Proyecto
+
+```
+ecommerce/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── AdminController.php
+│   │       ├── AjusteController.php
+│   │       ├── RoleController.php
+│   │       └── HomeController.php
+│   ├── Models/
+│   │   ├── User.php
+│   │   └── Ajuste.php
+│   └── Providers/
+├── database/
+│   ├── migrations/
+│   │   ├── create_users_table.php
+│   │   ├── create_ajustes_table.php
+│   │   └── create_permission_tables.php
+│   └── database.sqlite
+├── resources/
+│   └── views/
+│       ├── admin/
+│       │   ├── ajustes/
+│       │   └── roles/
+│       ├── auth/
+│       ├── layouts/
+│       └── welcome.blade.php
+├── routes/
+│   └── web.php
+└── public/
+```
+
+## 🛠️ Tecnologías Utilizadas
+
+### Backend
+- **[Laravel 12](https://laravel.com)** - Framework PHP moderno
+- **[Laravel UI](https://github.com/laravel/ui)** - Scaffolding de autenticación
+- **[Spatie Permission](https://spatie.be/docs/laravel-permission)** - Gestión de roles y permisos
+- **[Laravel Tinker](https://github.com/laravel/tinker)** - REPL para Laravel
+
+### Frontend
+- **[Vite](https://vitejs.dev)** - Build tool y dev server
+- **[Bootstrap 5](https://getbootstrap.com)** - Framework CSS
+- **[Tailwind CSS 4](https://tailwindcss.com)** - Utility-first CSS
+- **[Axios](https://axios-http.com)** - Cliente HTTP
+
+### Desarrollo
+- **[PHPUnit](https://phpunit.de)** - Testing framework
+- **[Laravel Pint](https://laravel.com/docs/pint)** - Code style fixer
+- **[Laravel Sail](https://laravel.com/docs/sail)** - Entorno Docker
+- **[Concurrently](https://www.npmjs.com/package/concurrently)** - Ejecutar múltiples comandos
+
+## 📜 Scripts Disponibles
+
+### Composer Scripts
+
+```bash
+# Configuración inicial completa
+composer run setup
+
+# Modo desarrollo (servidor + queue + logs + vite)
+composer run dev
+
+# Ejecutar tests
+composer run test
+```
+
+### NPM Scripts
+
+```bash
+# Compilar assets para desarrollo con HMR
+npm run dev
+
+# Compilar assets para producción
+npm run build
+```
+
+## 🤝 Contribuir
+
+Las contribuciones son bienvenidas. Para contribuir:
+
+1. Haz un fork del proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+## 📞 Soporte
+
+Si tienes alguna pregunta o problema, por favor:
+
+- Abre un [issue](https://github.com/alejoprograming26/Ecommerce-project/issues)
+- Contacta al equipo de desarrollo
+
+## 🙏 Agradecimientos
+
+- [Laravel](https://laravel.com) - El framework PHP para artesanos web
+- [Spatie](https://spatie.be) - Por el excelente paquete de permisos
+- Todos los contribuidores que han ayudado a mejorar este proyecto
+
+---
+
+<p align="center">Hecho con ❤️ usando Laravel</p>
