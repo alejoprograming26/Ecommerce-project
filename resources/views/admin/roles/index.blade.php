@@ -44,11 +44,11 @@
                                             <i class="bi bi-pencil-square"></i> Editar
                                         </a>
                                         <form action="{{ url('/admin/roles/' . $role->id) }}" method="POST"
-                                            style="display: inline;">
+                                            class="delete-form" style="display: inline;"
+                                            data-item-name="el rol '{{ $role->name }}'">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('¿Estás seguro de eliminar este rol?')">
+                                            <button type="submit" class="btn btn-sm btn-danger">
                                                 <i class="bi bi-trash"></i> Eliminar
                                             </button>
                                         </form>

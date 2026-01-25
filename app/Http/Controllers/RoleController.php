@@ -41,10 +41,16 @@ class RoleController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {
-        $rol = Role::find($id);
-        return view('admin.roles.show', compact('rol'));
+{
+    $rol = Role::find($id);
+    
+    if (!$rol) {
+        return redirect()->route('admin.roles.index')
+            ->with('error', 'Rol no encontrado');
     }
+    
+    return view('admin.roles.show', compact('rol'));
+}
 
     /**
      * Show the form for editing the specified resource.
