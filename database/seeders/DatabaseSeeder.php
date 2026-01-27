@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Ajuste;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,9 +19,43 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+       User::create([
+        'name'=>'Alejandro Alvarez',
+        'email' =>'joseale260403@gmail.com',
+        'password' => bcrypt('12345678'),
+       ]);
+       Ajuste::create([
+        'nombre'=>'Ecommerce',
+        'descripcion'=>'La mejor Empresa Online',
+        'sucursal'=>'Principal',
+        'direccion' =>'Cabudare, Lara',  
+        'telefonos' =>'573123456789',
+        'email' =>'empresa@gmail.com',
+        'divisa' =>'Bs',
+        'pagina_web' =>'https://www.google.com',
+        'logo' =>'logos/lg.png',
+        'imagen_login' =>'imagenes_login/login.jpg',
+       ]);
+       
+       Role::create([
+        'name'=>'SUPER ADMIN',
+       ]);
+       Role::create([
+        'name'=>'ADMINISTRADOR',
+
+       ]);
+       Role::create([
+        'name'=>'VENDEDOR',
+       ]);
+       Role::create([
+        'name'=>'CONTABILIDAD',
+       ]);
+       Role::create([
+        'name'=>'OPERADOR',
+       ]);
+       Role::create([
+        'name'=>'CLIENTE',
+       ]);
+       
     }
 }
