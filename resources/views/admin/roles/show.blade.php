@@ -48,9 +48,9 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <a href="{{ route('admin.roles.index') }}" class="btn btn-danger"><i
-                                            class="bi bi-x-circle"></i>
-                                        Volver</a>
+                                   <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary"><i
+                                            class="bi bi-arrow-left"></i>
+                                        volver</a>
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,22 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form action="{{ url('admin/usuarios') }}" method="GET">
+                                <div class="input-group">
+                                    <input type="text" name="buscar" class="form-control" placeholder="Buscar usuario"
+                                        value="{{ request()->get('buscar') ?? '' }}">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                        @if (request()->get('buscar'))
+                                            <a href="{{ url('admin/usuarios') }}" class="btn btn-success">Limpiar</a>
+                                        @endif
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -35,15 +51,15 @@
                             @foreach ($usuarios as $usuario)
                                 <tr class="text-center">
                                     <td>{{ $nro++ }}</td>
-                                    <td>{{ $usuario->name }}</td>
+                                    <td>{{ $usuario->roles->pluck('name')->implode(', ') }}</td>
                                     <td>{{ $usuario->name }}</td>
                                     <td>{{ $usuario->email }}</td>
                                     <td>
-                                        <a href="{{ url('/admin/usarios/' . $usuario->id) }}" title="Ver Rol"
+                                        <a href="{{ url('/admin/usuarios/' . $usuario->id) }}" title="Ver"
                                             class="btn btn-sm btn-info">
                                             <i class="bi bi-eye"></i> Ver
                                         </a>
-                                        <a href="{{ url('/admin/usarios/' . $usuario->id . '/edit') }}" title="Editar Rol"
+                                        <a href="{{ url('/admin/usuarios/' . $usuario->id . '/edit') }}" title="Editar "
                                             class="btn btn-sm btn-success">
                                             <i class="bi bi-pencil-square"></i> Editar
                                         </a>

@@ -36,9 +36,9 @@
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-success"><i class="bi bi-save"></i>
                                         Actualizar</button>
-                                    <a href="{{ route('admin.roles.index') }}" class="btn btn-danger"><i
-                                            class="bi bi-x-circle"></i>
-                                        Volver</a>
+                                    <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary"><i
+                                            class="bi bi-arrow-left"></i>
+                                        volver</a>
                                 </div>
                             </div>
                         </div>
