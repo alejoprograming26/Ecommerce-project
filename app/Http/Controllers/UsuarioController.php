@@ -13,21 +13,39 @@ class UsuarioController extends Controller
      */
     public function index( Request $request)
     {
-        
-       
         $buscar = $request->get('buscar');
+        $estado = $request->get('estado');
+        $rol = $request->get('rol');
+
         $query = User::whereDoesntHave('roles', function ($query) {
             $query->where('name', 'SUPER ADMIN');
         })->withTrashed();
-        if ($buscar) {
-            $query->where('name', 'like', '%' . $buscar. '%')
-                ->orWhere('email', 'like', '%'.$buscar. '%')
-                ;
 
+        if ($buscar) {
+            $query->where(function ($q) use ($buscar) {
+                $q->where('name', 'like', '%' . $buscar . '%')
+                  ->orWhere('email', 'like', '%' . $buscar . '%');
+            });
         }
+
+        if ($estado !== null && $estado !== '') {
+            if ($estado == '1') {
+                $query->whereNull('deleted_at');
+            } elseif ($estado == '0') {
+                $query->whereNotNull('deleted_at');
+            }
+        }
+
+        if ($rol) {
+            $query->whereHas('roles', function ($q) use ($rol) {
+                $q->where('id', $rol);
+            });
+        }
+
         $usuarios = $query->paginate(10);
+        $roles = Role::where('name', '!=', 'SUPER ADMIN')->get();
         
-        return view('admin.usuarios.index', compact('usuarios'));
+        return view('admin.usuarios.index', compact('usuarios', 'roles'));
     }
 
     /**

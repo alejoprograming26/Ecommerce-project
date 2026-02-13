@@ -17,18 +17,46 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
                             <form action="{{ url('admin/usuarios') }}" method="GET">
-                                <div class="input-group">
-                                    <input type="text" name="buscar" class="form-control" placeholder="Buscar usuario"
-                                        value="{{ request()->get('buscar') ?? '' }}">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit">Buscar</button>
-                                        @if (request()->get('buscar'))
-                                            <a href="{{ url('admin/usuarios') }}" class="btn btn-success">Limpiar</a>
-                                        @endif
-                                    </span>
+                                <div class="row align-items-end">
+                                    <div class="col-md-3">
+                                        <label for="buscar" class="form-label">Buscar</label>
+                                        <input type="text" name="buscar" id="buscar" class="form-control" placeholder="Nombre o email"
+                                            value="{{ request()->get('buscar') }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="estado" class="form-label">Estado</label>
+                                        <select name="estado" id="estado" class="form-select">
+                                            <option value="">Todos los estados</option>
+                                            <option value="1" {{ request()->get('estado') == '1' ? 'selected' : '' }}>Activo</option>
+                                            <option value="0" {{ request()->get('estado') == '0' ? 'selected' : '' }}>Inactivo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="rol" class="form-label">Rol</label>
+                                        <select name="rol" id="rol" class="form-select">
+                                            <option value="">Todos los roles</option>
+                                            @foreach($roles as $role)
+                                                <option value="{{ $role->id }}" {{ request()->get('rol') == $role->id ? 'selected' : '' }}>
+                                                    {{ $role->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="btn-group w-100">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="bi bi-filter"></i> Filtrar
+                                            </button>
+                                            @if (request()->hasAny(['buscar', 'estado', 'rol']))
+                                                <a href="{{ url('admin/usuarios') }}" class="btn btn-secondary">
+                                                    <i class="bi bi-x-circle"></i> Limpiar
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
