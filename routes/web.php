@@ -34,5 +34,7 @@ Route::get('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class
 Route::get('admin/usuarios/{id}/edit', [App\Http\Controllers\UsuarioController::class, 'edit'])->middleware('auth')->name('admin.usuarios.edit');
 Route::put('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class, 'update'])->middleware('auth')->name('admin.usuarios.update');
 Route::delete('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class, 'destroy'])->middleware('auth')->name('admin.usuarios.destroy');
+Route::post('admin/usuarios/{id}/restaurar', [App\Http\Controllers\UsuarioController::class, 'restore'])->middleware('auth')->name('admin.usuarios.restore');
+
 
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
- 
+
 
 class UsuarioController extends Controller
 {
@@ -16,7 +16,9 @@ class UsuarioController extends Controller
         
        
         $buscar = $request->get('buscar');
-        $query = User::query();
+        $query = User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'SUPER ADMIN');
+        })->withTrashed();
         if ($buscar) {
             $query->where('name', 'like', '%' . $buscar. '%')
                 ->orWhere('email', 'like', '%'.$buscar. '%')
@@ -124,5 +126,15 @@ class UsuarioController extends Controller
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario eliminado exitosamente');
 
         
+    }
+
+    public function restore($id)
+    {
+       $usuario = User::withTrashed()->find($id);
+       $usuario->estado = true;
+       $usuario->restore();
+       $usuario->save();
+    
+       return redirect()->route('admin.usuarios.index')->with('success', 'Usuario restaurado exitosamente');
     }
 }

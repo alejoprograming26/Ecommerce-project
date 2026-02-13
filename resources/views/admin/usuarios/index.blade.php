@@ -41,6 +41,7 @@
                                 <th>Rol</th>
                                 <th>Nombre del Usuario</th>
                                 <th>Email</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -55,24 +56,41 @@
                                     <td>{{ $usuario->name }}</td>
                                     <td>{{ $usuario->email }}</td>
                                     <td>
-                                        <a href="{{ url('/admin/usuarios/' . $usuario->id) }}" title="Ver"
-                                            class="btn btn-sm btn-info">
-                                            <i class="bi bi-eye"></i> Ver
-                                        </a>
-                                        <a href="{{ url('/admin/usuarios/' . $usuario->id . '/edit') }}" title="Editar "
-                                            class="btn btn-sm btn-success">
-                                            <i class="bi bi-pencil-square"></i> Editar
-                                        </a>
-                                        <form action="{{ url('/admin/usuarios/' . $usuario->id) }}" method="POST"
-                                            class="delete-form" style="display: inline;"
-                                            data-item-name="el rol '{{ $usuario->name }}'">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="bi bi-trash"></i> Eliminar
-                                            </button>
-                                        </form>
-
+                                        @if ($usuario->estado==0)
+                                           <span class="badge bg-danger">Inactivo</span>
+                                        @else
+                                             <span class="badge bg-success">Activo</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($usuario->trashed())
+                                          <form action="{{ url('/admin/usuarios/' . $usuario->id . '/restaurar') }}" method="POST"
+                                                class="restore-form" style="display: inline;"
+                                                data-item-name="el usuario '{{ $usuario->name }}'">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-warning">
+                                                    <i class="bi bi-arrow-clockwise"></i> Restaurar
+                                                </button>
+                                            </form>
+                                        @else
+                                            <a href="{{ url('/admin/usuarios/' . $usuario->id) }}" title="Ver"
+                                                class="btn btn-sm btn-info">
+                                                <i class="bi bi-eye"></i> Ver
+                                            </a>
+                                            <a href="{{ url('/admin/usuarios/' . $usuario->id . '/edit') }}" title="Editar "
+                                                class="btn btn-sm btn-success">
+                                                <i class="bi bi-pencil-square"></i> Editar
+                                            </a>
+                                            <form action="{{ url('/admin/usuarios/' . $usuario->id) }}" method="POST"
+                                                class="delete-form" style="display: inline;"
+                                                data-item-name="el rol '{{ $usuario->name }}'">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="bi bi-trash"></i> Eliminar
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

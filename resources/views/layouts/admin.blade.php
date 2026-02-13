@@ -246,6 +246,31 @@
                     });
                 });
             });
+
+            const restoreForms = document.querySelectorAll('.restore-form');
+            
+            restoreForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const itemName = this.dataset.itemName || 'este registro';
+                    
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: `¿Deseas restaurar ${itemName}?`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#28a745',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, restaurar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    });
+                });
+            });
         });
     </script>
 </body>
