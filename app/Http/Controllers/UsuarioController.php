@@ -19,7 +19,9 @@ class UsuarioController extends Controller
         $query = User::query();
         if ($buscar) {
             $query->where('name', 'like', '%' . $buscar. '%')
-                ->orWhere('email', 'like', '%'.$buscar. '%');
+                ->orWhere('email', 'like', '%'.$buscar. '%')
+                ;
+
         }
         $usuarios = $query->paginate(10);
         
@@ -115,7 +117,10 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         $usuario = User::find($id);
+        $usuario->estado = false;
+        $usuario->save();
         $usuario->delete();
+
         return redirect()->route('admin.usuarios.index')->with('success', 'Usuario eliminado exitosamente');
 
         
