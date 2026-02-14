@@ -30,7 +30,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categorias.create');
     }
 
     /**
@@ -38,38 +38,64 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:categorias,nombre',
+            'slug' => 'required|string|max:255|unique:categorias,slug',
+            'descripcion' => 'nullable|string|max:255',
+        ]);
+
+        Categoria::create($request->all());
+
+        return redirect()->route('admin.categorias.index')
+            ->with('success', 'Categoría creada exitosamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Categoria $categoria)
+    public function show($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('admin.categorias.show', compact('categoria'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('admin.categorias.edit', compact('categoria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:categorias,nombre,' . $id,
+            'slug' => 'required|string|max:255|unique:categorias,slug,' . $id,
+            'descripcion' => 'nullable|string|max:255',
+        ]);
+
+        $categoria->update($request->all());
+
+        return redirect()->route('admin.categorias.index')
+            ->with('success', 'Categoría actualizada exitosamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+
+        return redirect()->route('admin.categorias.index')
+            ->with('success', 'Categoría eliminada exitosamente');
     }
 }

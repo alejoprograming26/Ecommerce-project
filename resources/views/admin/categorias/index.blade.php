@@ -37,6 +37,7 @@
                             <tr class="text-center">
                                 <th>Nro</th>
                                 <th>Nombre</th>
+                                <th>Slug</th>
                                 <th>Descripción</th>
                                 <th>Acciones</th>
                             </tr>
@@ -49,26 +50,30 @@
                                 <tr class="text-center">
                                     <td>{{ $nro++ }}</td>
                                     <td>{{ $categoria->nombre }}</td>
+                                    <td>{{ $categoria->slug }}</td>
                                     <td>{{ $categoria->descripcion }}</td>
                                     <td>
-                                        <a href="{{ url('/admin/categorias/' . $categoria->id) }}" title="Ver Categoria"
-                                            class="btn btn-sm btn-info">
+                                        <div class="btn-group btn-group-sm" role="group" >
+                                            <a href="{{ url('/admin/categorias/' . $categoria->id) }}" title="Ver Categoria"
+                                            class="btn btn-sm btn-info mb-3">
                                             <i class="bi bi-eye"></i> Ver
                                         </a>
                                         <a href="{{ url('/admin/categorias/' . $categoria->id . '/edit') }}"
-                                            title="Editar Categoria" class="btn btn-sm btn-success">
+                                            title="Editar Categoria" class="btn btn-sm btn-success mb-3">
                                             <i class="bi bi-pencil-square"></i> Editar
                                         </a>
-                                        <form action="{{ url('/admin/categorias/' . $categoria->id) }}" method="POST"
+                                         <form action="{{ route('admin.categorias.destroy', $categoria->id) }}" method="POST"
                                             class="delete-form" style="display: inline;"
                                             data-item-name="la categoria '{{ $categoria->nombre }}'">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">
+                                             <button type="submit" class="btn btn-sm btn-danger">
                                                 <i class="bi bi-trash"></i> Eliminar
                                             </button>
+                                            
                                         </form>
 
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

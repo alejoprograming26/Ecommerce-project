@@ -21,7 +21,7 @@
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-person"></i></span>
                                         <input type="text" class="form-control" name="name" id="name"
-                                            placeholder="Ingrese el Nombre del Rol" required>
+                                            placeholder="Ingrese el Nombre del Rol" value="{{ old('name')}}" required>
                                     </div>
                                     @error('name')
                                         <small class="text-danger">{{ $message }}</small>
