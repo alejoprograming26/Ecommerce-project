@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Ajuste;
 use Spatie\Permission\Models\Role;
+use App\Models\Categoria;
 
 class DatabaseSeeder extends Seeder
 {
@@ -56,7 +57,7 @@ class DatabaseSeeder extends Seeder
         'logo' =>'logos/lg.png',
         'imagen_login' =>'imagenes_login/login.jpg',
        ]);
-       
+       Categoria::factory(17)->create();
        
        
     }

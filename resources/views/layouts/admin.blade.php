@@ -96,6 +96,14 @@
 
 
                         </li>
+                        <li class="sidebar-item {{ request()->is('admin/categoria*') ? 'active' : '' }} ">
+                            <a href="{{ url('/admin/categorias') }}" class='sidebar-link'>
+                                <i class="bi bi-handbag-fill"></i>
+                                <span>Categorias</span>
+                            </a>
+
+
+                        </li>
 
                         <li class="sidebar-title">Ajustes</li>
 
@@ -187,7 +195,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Mostrar mensajes flash de Laravel con SweetAlert2
-        @if(session('success'))
+        @if (session('success'))
             Swal.fire({
                 icon: 'success',
                 title: '¡Éxito!',
@@ -199,7 +207,7 @@
             });
         @endif
 
-        @if(session('error'))
+        @if (session('error'))
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -208,7 +216,7 @@
             });
         @endif
 
-        @if(session('info'))
+        @if (session('info'))
             Swal.fire({
                 icon: 'info',
                 title: 'Información',
@@ -223,13 +231,13 @@
         // Confirmación de eliminación con SweetAlert2
         document.addEventListener('DOMContentLoaded', function() {
             const deleteForms = document.querySelectorAll('.delete-form');
-            
+
             deleteForms.forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    
+
                     const itemName = this.dataset.itemName || 'este registro';
-                    
+
                     Swal.fire({
                         title: '¿Estás seguro?',
                         text: `¿Deseas eliminar ${itemName}?`,
@@ -248,13 +256,13 @@
             });
 
             const restoreForms = document.querySelectorAll('.restore-form');
-            
+
             restoreForms.forEach(form => {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    
+
                     const itemName = this.dataset.itemName || 'este registro';
-                    
+
                     Swal.fire({
                         title: '¿Estás seguro?',
                         text: `¿Deseas restaurar ${itemName}?`,

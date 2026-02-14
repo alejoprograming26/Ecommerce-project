@@ -111,7 +111,7 @@
                                             </a>
                                             <form action="{{ url('/admin/usuarios/' . $usuario->id) }}" method="POST"
                                                 class="delete-form" style="display: inline;"
-                                                data-item-name="el rol '{{ $usuario->name }}'">
+                                                data-item-name="el Usuario '{{ $usuario->name }}'">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">

@@ -36,5 +36,13 @@ Route::put('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class
 Route::delete('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class, 'destroy'])->middleware('auth')->name('admin.usuarios.destroy');
 Route::post('admin/usuarios/{id}/restaurar', [App\Http\Controllers\UsuarioController::class, 'restore'])->middleware('auth')->name('admin.usuarios.restore');
 
+//Categoria
+Route::get('admin/categorias', [App\Http\Controllers\CategoriaController::class, 'index'])->middleware('auth')->name('admin.categorias.index');
+Route::get('admin/categorias/create', [App\Http\Controllers\CategoriaController::class, 'create'])->middleware('auth')->name('admin.categorias.create');
+Route::post('admin/categorias/create', [App\Http\Controllers\CategoriaController::class, 'store'])->middleware('auth')->name('admin.categorias.store');
+Route::get('admin/categorias/{id}', [App\Http\Controllers\CategoriaController::class, 'show'])->middleware('auth')->name('admin.categorias.show');
+Route::get('admin/categorias/{id}/edit', [App\Http\Controllers\CategoriaController::class, 'edit'])->middleware('auth')->name('admin.categorias.edit');
+Route::put('admin/categorias/{id}', [App\Http\Controllers\CategoriaController::class, 'update'])->middleware('auth')->name('admin.categorias.update');
+Route::delete('admin/categorias/{id}', [App\Http\Controllers\CategoriaController::class, 'destroy'])->middleware('auth')->name('admin.categorias.destroy');
 
 
