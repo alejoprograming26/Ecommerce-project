@@ -189,7 +189,7 @@
 
     <!-- Need: Apexcharts -->
     <script src="{{ url('/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ url('/assets/static/js/pages/dashboard.js') }}"></script>
+    <!--<script src="{{ url('/assets/static/js/pages/dashboard.js') }}"></script>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

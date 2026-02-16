@@ -1,0 +1,28 @@
+Table Categoria {
+    id int [primary key]
+    nombre varchar(255)
+    slug varchar(255)
+    descripcion text
+    created_at datetime
+    updated_at datetime
+}
+Table Producto {
+    id int [primary key]
+    categoria_id int [ref: > Categoria.id]
+    nombre varchar(255)
+    codigo varchar(255)
+    descripcion_corta text
+    descripcion_larga text
+    precio_compra float
+    precio_venta float
+    stock int
+    created_at datetime
+    updated_at datetime
+}
+Table Producto_Imagen {
+    id int [primary key]
+    producto_id int [ref: > Producto.id]
+    url varchar(255)
+    created_at datetime
+    updated_at datetime
+}
