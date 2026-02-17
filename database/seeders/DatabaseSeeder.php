@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Ajuste;
 use Spatie\Permission\Models\Role;
 use App\Models\Categoria;
-
+use App\Models\Producto;
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -44,12 +44,12 @@ class DatabaseSeeder extends Seeder
         'email' =>'joseale260403@gmail.com',
         'password' => bcrypt('12345678'),
        ])->assignRole('SUPER ADMIN');
-       
+
        Ajuste::create([
         'nombre'=>'Ecommerce',
         'descripcion'=>'La mejor Empresa Online',
         'sucursal'=>'Principal',
-        'direccion' =>'Cabudare, Lara',  
+        'direccion' =>'Cabudare, Lara',
         'telefonos' =>'573123456789',
         'email' =>'empresa@gmail.com',
         'divisa' =>'Bs',
@@ -58,7 +58,8 @@ class DatabaseSeeder extends Seeder
         'imagen_login' =>'imagenes_login/login.jpg',
        ]);
        Categoria::factory(17)->create();
-       
-       
+         Producto::factory(50)->create();
+
+
     }
 }
