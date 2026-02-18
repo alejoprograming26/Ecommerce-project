@@ -96,7 +96,7 @@
                     <div class="card-body d-flex align-items-center px-4 py-4">
                         <div class="stats-icon red me-4 d-flex justify-content-center align-items-center"
                             style="width: 60px; height: 60px; border-radius: 0.5rem;">
-                            <i class=""><i class="bi bi-box-seam-fill"></i></i>
+                            <i class=""><i class="bi bi-box-seam-fill fs-1 text-white"></i></i>
                         </div>
                         <div>
                             <h6 class="text-muted fw-semibold mb-1 text-uppercase"
