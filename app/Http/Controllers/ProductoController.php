@@ -42,15 +42,39 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        //return response()->json($request->all());
+        $request->validate([
+            'categoria_id' => 'required|exists:categorias,id',
+            'nombre' => 'required|string|max:255',
+            'codigo' => 'required|string|max:255|unique:productos',
+            'descripcion_corta' => 'required|string|max:255',
+            'descripcion_larga' => 'required|string',
+            'precio_compra' => 'required|numeric|min:0',
+            'precio_venta' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+        ]);
+
+        $producto = new Producto();
+        $producto->categoria_id = $request->categoria_id;
+        $producto->nombre = $request->nombre;
+        $producto->codigo = $request->codigo;
+        $producto->descripcion_corta = $request->descripcion_corta;
+        $producto->descripcion_larga = $request->descripcion_larga;
+        $producto->precio_compra = $request->precio_compra;
+        $producto->precio_venta = $request->precio_venta;
+        $producto->stock = $request->stock;
+        $producto->save();
+
+        return redirect()->route('admin.productos.index')->with('success', 'Producto creado exitosamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Producto $producto)
+    public function show($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        return view('admin.productos.show', compact('producto'));
     }
 
     /**

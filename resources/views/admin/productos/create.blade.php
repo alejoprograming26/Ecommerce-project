@@ -140,13 +140,48 @@
                                                 <div class="input-group">
                                                     <div style="width: 100%">
                                                         <textarea class="form-control ckeditor" name="descripcion_larga" id="descripcion_larga" rows="6"
-                                                            placeholder="" required>{{ old('descripcion_larga') }}</textarea>
+                                                            placeholder="">{{ old('descripcion_larga') }}</textarea>
                                                     </div>
                                                 </div>
                                                 @error('descripcion_larga')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
+                                            <style>
+                                                /* Hacer que el editor herede el fondo y color del contenedor (soporta modo oscuro) */
+                                                .ck-editor__editable_inline,
+                                                .ck-editor__editable,
+                                                .ck-content {
+                                                    background: transparent !important;
+                                                    color: inherit !important;
+                                                }
+
+                                                .ck.ck-toolbar,
+                                                .ck-toolbar {
+                                                    background: transparent !important;
+                                                    color: inherit !important;
+                                                    border: none !important;
+                                                }
+
+                                                .ck.ck-toolbar .ck-button {
+                                                    color: inherit !important;
+                                                }
+
+                                                /* Paneles y dropdowns: semitransparente para legibilidad en modo oscuro */
+                                                .ck.ck-dropdown__panel,
+                                                .ck.ck-panel,
+                                                .ck-balloon-panel {
+                                                    background: rgba(0, 0, 0, 0.65) !important;
+                                                    color: #fff !important;
+                                                }
+
+                                                /* Asegurar texto blanco en areas oscuras típicas */
+                                                .card.bg-dark .ck-editor__editable_inline,
+                                                body.dark .ck-editor__editable_inline {
+                                                    color: #fff !important;
+                                                }
+                                            </style>
+
                                             <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
