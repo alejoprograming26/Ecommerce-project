@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\ProductoImagen;
+use Illuminate\Support\Facades\Storage;
+
 class ProductoController extends Controller
 {
     /**
@@ -76,7 +79,36 @@ class ProductoController extends Controller
         $producto = Producto::findOrFail($id);
         return view('admin.productos.show', compact('producto'));
     }
+     public function imagenes($id)
+     {
+            $producto = Producto::findOrFail($id);
+            return view('admin.productos.imagenes', compact('producto'));
+     }
+     public function upload_imagen(Request $request, $id)
+        {
 
+            $request->validate([
+                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+            $producto = Producto::findOrFail($id);
+            $imagenProducto = new ProductoImagen();
+            $imagenProducto->producto_id = $producto->id;
+            $imagenProducto->imagen = $request->file('imagen')->store('productos', 'public');
+            $imagenProducto->save();
+
+            return redirect()->route('admin.productos.imagenes' , $producto->id)->with('success', 'Imagen subida exitosamente');
+     }
+        public function eliminar_imagen($id, $imagen_id)
+        {
+                $producto = Producto::findOrFail($id);
+                $imagenProducto = ProductoImagen::findOrFail($imagen_id);
+                if($imagenProducto->imagen && Storage::disk('public')->exists($imagenProducto->imagen)){
+                    Storage::disk('public')->delete($imagenProducto->imagen);
+                }
+                $imagenProducto->delete();
+
+                return redirect()->route('admin.productos.imagenes' , $producto->id)->with('success', 'Imagen eliminada exitosamente');
+        }
     /**
      * Show the form for editing the specified resource.
      */

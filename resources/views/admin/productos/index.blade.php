@@ -66,6 +66,10 @@
                                                 class="btn btn-sm btn-info mb-3">
                                                 <i class="bi bi-eye"></i> Ver
                                             </a>
+                                            <a href="{{ url('/admin/productos/' . $producto->id . '/imagenes') }}"
+                                                title="Agg Imagenes" class="btn btn-sm btn-warning mb-3">
+                                                <i class="bi bi-image"></i> Imagenes
+                                            </a>
                                             <a href="{{ url('/admin/productos/' . $producto->id . '/edit') }}"
                                                 title="Editar Producto" class="btn btn-sm btn-success mb-3">
                                                 <i class="bi bi-pencil-square"></i> Editar

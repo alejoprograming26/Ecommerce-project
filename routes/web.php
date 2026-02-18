@@ -53,5 +53,6 @@ Route::get('admin/productos/{id}', [App\Http\Controllers\ProductoController::cla
 Route::get('admin/productos/{id}/edit', [App\Http\Controllers\ProductoController::class, 'edit'])->middleware('auth')->name('admin.productos.edit');
 Route::put('admin/productos/{id}', [App\Http\Controllers\ProductoController::class, 'update'])->middleware('auth')->name('admin.productos.update');
 Route::delete('admin/productos/{id}', [App\Http\Controllers\ProductoController::class, 'destroy'])->middleware('auth')->name('admin.productos.destroy');
-
-
+Route::get('admin/productos/{id}/imagenes', [App\Http\Controllers\ProductoController::class, 'imagenes'])->middleware('auth')->name('admin.productos.imagenes');
+Route::post('admin/productos/{id}/upload_imagen', [App\Http\Controllers\ProductoController::class, 'upload_imagen'])->middleware('auth')->name('admin.productos.upload_imagen');
+Route::delete('admin/productos/{id}/eliminar_imagen/{imagen_id}', [App\Http\Controllers\ProductoController::class, 'eliminar_imagen'])->middleware('auth')->name('admin.productos.eliminar_imagen');

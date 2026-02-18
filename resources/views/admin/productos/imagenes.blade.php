@@ -163,16 +163,96 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title"><b>Imagenes del Producto</b>
+                        <div style="float: right">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                <i class="bi bi-plus-circle"></i> Agregar Imagen
+                            </button>
+                        </div>
                     </h4>
                 </div>
 
                 <div class="card-body">
+                    <!-- Button trigger modal --
+
+                                                                                                                <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cargar Iamgen del Producto</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ url('/admin/productos/' . $producto->id . '/upload_imagen') }}"
+                                        method="post" enctype="multipart/form-data" id="form_imagen">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <br>
+                                                    <label for="iamgen" class="form-label"> Imagen del Producto
+                                                    </label>
+                                                    <input type="hidden" name="producto_id"
+                                                        value="{{ $producto->id }}">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text"><i class="bi bi-camera"></i></span>
+                                                        <input type="file" name="imagen" id="imagen_login"
+                                                            onchange="mostrarImagen2(event)"
+                                                            class="form-control @error('imagen') is-invalid @enderror"
+                                                            placeholder="" value="{{ old('imagen') }}" required>
+
+                                                        @error('imagen')
+                                                            <div class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <center>
+                                                    <img src="" id="preview2" class="img-fluid"
+                                                        style="max-width: 200px; margin-top: 10px;">
+                                                </center>
+                                                <script>
+                                                    const mostrarImagen2 = (e) => {
+                                                        document.getElementById("preview2").src = URL.createObjectURL(e.target.files[0]);
+                                                    }
+                                                </script>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div style="float: right">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" form="form_imagen" class="btn btn-primary">Guardar
+                                                    Imagen</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         @foreach ($producto->imagenes as $imagen)
                             <div class="col-md-3" style="margin-top: 10px">
                                 <div class="card mb-3">
                                     <img src="{{ asset('storage/' . $imagen->imagen) }}" class="card-img-top"
                                         alt="Imagen del Producto">
+                                    <form
+                                        action="{{ url('/admin/productos/' . $producto->id . '/eliminar_imagen/' . $imagen->id) }}"
+                                        method="POST" class="delete-form" style="display: inline;"
+                                        data-item-name="La Imagen  del producto '{{ $producto->nombre }}'">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-block btn-danger">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>
+
+                                    </form>
                                 </div>
                             </div>
                         @endforeach
