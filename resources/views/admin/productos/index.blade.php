@@ -57,8 +57,8 @@
                                     <td>{{ $producto->nombre }}</td>
                                     <td>{{ $producto->codigo }}</td>
                                     <td>{{ $producto->descripcion_corta }}</td>
-                                    <td>{{ $producto->precio_compra }}</td>
-                                    <td>{{ $producto->precio_venta }}</td>
+                                    <td>{{ $producto->precio_compra }} {{ $ajuste->divisa }}</td>
+                                    <td>{{ $producto->precio_venta }} {{ $ajuste->divisa }}</td>
                                     <td>{{ $producto->stock }}</td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">

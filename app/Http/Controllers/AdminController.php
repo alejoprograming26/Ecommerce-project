@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Models\Categoria;
+use App\Models\Producto;
 
 class AdminController extends Controller
 {
@@ -16,6 +17,7 @@ class AdminController extends Controller
             $query->where('name', 'SUPER ADMIN');
         })->count();
         $total_categorias = Categoria::count();
-        return view('admin.index', compact('total_roles', 'total_usuarios', 'total_categorias'));
+        $total_productos = Producto::count();
+        return view('admin.index', compact('total_roles', 'total_usuarios', 'total_categorias', 'total_productos'));
     }
 }
