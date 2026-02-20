@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Ajuste;
+use App\Models\Producto;
 
 class WebController extends Controller
 {
     public function index()
     {
-        return view('layouts.web.index');
+        $ajuste = Ajuste::first();
+        $productos = Producto::all();
+
+        return view('layouts.web.index', compact('ajuste', 'productos'));
     }
 }
