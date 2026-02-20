@@ -9,8 +9,10 @@
     <meta name="keywords" content="">
 
     <!-- Favicons -->
-    <link href="{{ asset('storage/logos/' . $ajuste->logo) }}" rel="icon">
-    <link href="{{ asset('storage/logos/' . $ajuste->logo) }}" rel="apple-touch-icon">
+    @if(isset($ajuste) && $ajuste->logo)
+        <link href="{{ asset('storage/' . $ajuste->logo) }}" rel="icon">
+        <link href="{{ asset('storage/' . $ajuste->logo) }}" rel="apple-touch-icon">
+    @endif
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -48,9 +50,10 @@
                 <div class="d-flex py-3 align-items-center justify-content-between">
 
                     <!-- Logo -->
-                    <a href="index.html" class="logo d-flex align-items-center">
-                        <!-- Uncomment the line below if you also wish to use an image logo -->
-                        <!-- <img src="assets/img/logo.webp" alt=""> -->
+                    <a href="{{ url('/') }}" class="logo d-flex align-items-center">
+                        @if(isset($ajuste) && $ajuste->logo)
+                            <img src="{{ asset('storage/' . $ajuste->logo) }}" alt="{{ $ajuste->nombre ?? env('APP_NAME') }}" style="max-height: 50px; width: auto;">
+                        @endif
                         <h1 class="sitename">{{ $ajuste->nombre ?? env('APP_NAME') }}</h1>
                     </a>
 

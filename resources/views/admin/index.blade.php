@@ -91,7 +91,7 @@
         </div>
 
         <div class="col-12 col-md-6 col-lg-3 mb-4">
-            <a href="#" class="text-decoration-none-custom">
+            <a href="{{ url('/admin/productos') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
                     <div class="card-body d-flex align-items-center px-4 py-4">
                         <div class="stats-icon red me-4 d-flex justify-content-center align-items-center"

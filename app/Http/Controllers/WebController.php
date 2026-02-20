@@ -10,7 +10,7 @@ class WebController extends Controller
     public function index()
     {
         $ajuste = Ajuste::first();
-        $productos = Producto::all();
+        $productos = Producto::paginate(8);
 
         return view('layouts.web.index', compact('ajuste', 'productos'));
     }
