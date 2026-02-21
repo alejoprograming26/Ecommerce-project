@@ -181,6 +181,6 @@ class ProductoController extends Controller
         $ajuste = Ajuste::first();
         $producto = Producto::findOrFail($id);
 
-        return view('layouts.web.detalle_producto', compact('producto', 'ajuste'));
+        return view('web.detalle_producto', compact('producto', 'ajuste'));
     }
 }

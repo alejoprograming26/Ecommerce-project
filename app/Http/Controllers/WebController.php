@@ -12,6 +12,6 @@ class WebController extends Controller
         $ajuste = Ajuste::first();
         $productos = Producto::paginate(8);
 
-        return view('layouts.web.index', compact('ajuste', 'productos'));
+        return view('web.index', compact('ajuste', 'productos'));
     }
 }
