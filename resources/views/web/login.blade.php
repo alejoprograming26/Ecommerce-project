@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="switch-form">
                                     <span>¿No tienes una cuenta?</span>
-                                    <button type="button" class="switch-btn" data-target="register">Crear cuenta</button>
+                                    <a href="{{ url('/web/registro') }}" class="switch-btn">Crear cuenta</a>
                                 </div>
                             </form>
                         </div>

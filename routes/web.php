@@ -64,3 +64,5 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 Route::get('/carrito', [App\Http\Controllers\DashboardController::class, 'carrito'])->name('web.carrito');
 Route::get('/web/login', [App\Http\Controllers\DashboardController::class, 'login'])->name('web.login');
 Route::post('/web/login', [App\Http\Controllers\DashboardController::class, 'autenticacion'])->name('web.autenticacion');
+Route::get('/web/registro', [App\Http\Controllers\DashboardController::class, 'registro'])->name('web.registro');
+Route::post('/web/registro', [App\Http\Controllers\DashboardController::class, 'crear_cuenta'])->name('web.crear_cuenta');
