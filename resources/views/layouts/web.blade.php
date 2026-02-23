@@ -1,5 +1,5 @@
 @php
-    $ajuste =\App\Models\Ajuste::first() ?? '';
+    $ajuste = \App\Models\Ajuste::first() ?? '';
 
 @endphp
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>{{ $ajuste->nombre}}</title>
+    <title>{{ $ajuste->nombre }}</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -73,9 +73,10 @@
                     </a>
 
                     <!-- Search -->
-                    <form class="search-form desktop-search-form">
+                    <form class="search-form desktop-search-form" method="GET" action="{{ url('/buscar') }}">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Buscar Productos...">
+                            <input type="text" class="form-control" value="{{ $query ?? '' }}" name="producto"
+                                placeholder="Buscar Productos...">
                             <button class="btn" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>

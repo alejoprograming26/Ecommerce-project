@@ -76,6 +76,7 @@
         </div>
 
     </section><!-- /Hero Section -->
+
     <section id="best-sellers" class="best-sellers section">
 
         <!-- Section Title -->
@@ -147,4 +148,5 @@
                 @endif
             </div>
         </div>
-    @endsection
+    </section><!-- /Best Sellers Section -->
+@endsection
