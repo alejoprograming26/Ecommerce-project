@@ -1,10 +1,14 @@
+@php
+    $ajuste =\App\Models\Ajuste::first() ?? '';
+
+@endphp
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>{{ $ajuste->nombre ?? env('APP_NAME') }}</title>
+    <title>{{ $ajuste->nombre}}</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
