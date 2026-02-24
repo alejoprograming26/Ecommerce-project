@@ -14,12 +14,19 @@ class ProductoFavoritoController extends Controller
      */
     public function index()
     {
-        $ajuste = Ajuste::first();
-        $productoFavoritos = ProductoFavorito::where('usuario_id', Auth::user()->id)
-            ->with('producto.imagenes')
-            ->get();
 
-        return view('web.favoritos', compact('productoFavoritos', 'ajuste'));
+        if (Auth::check()) {
+            $ajuste = Ajuste::first();
+            $productoFavoritos = ProductoFavorito::where('usuario_id', Auth::user()->id)
+                ->with('producto.imagenes')
+                ->get();
+
+            return view('web.favoritos', compact('productoFavoritos', 'ajuste'));
+
+        } else {
+
+            return redirect()->route('web.login')->with('info', 'Iniciar Sesion Para Agregar Productos a Favoritos');
+        }
 
     }
 
@@ -42,6 +49,7 @@ class ProductoFavoritoController extends Controller
 
         if ($productoFavorito = ProductoFavorito::where('usuario_id', Auth::user()->id)->where('producto_id', $request->producto_id)->first()) {
             $redirectUrl = $request->input('redirect_url', url()->previous());
+
             return redirect($redirectUrl)->with('info', 'El Producto ya esta agregado a favoritos');
         }
         $productoFavorito = new ProductoFavorito;
@@ -50,6 +58,7 @@ class ProductoFavoritoController extends Controller
         $productoFavorito->save();
 
         $redirectUrl = $request->input('redirect_url', url()->previous());
+
         return redirect($redirectUrl)->with('success', 'Producto agregado a favoritos');
     }
 
@@ -80,8 +89,15 @@ class ProductoFavoritoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductoFavorito $productoFavorito)
+    public function destroy($id)
     {
-        //
+        $productoFavorito = ProductoFavorito::findOrFail($id);
+
+        if (! $productoFavorito) {
+            return redirect()->route('web.favorito.index')->with('error', 'Producto no encontrado');
+        }
+        $productoFavorito->delete();
+
+        return redirect()->route('web.favorito.index')->with('success', 'Producto eliminado de favoritos');
     }
 }

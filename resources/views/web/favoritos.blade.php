@@ -73,10 +73,21 @@
                               <button class="btn-remove" type="button" aria-label="Remove from wishlist">
                                 <i class="bi bi-trash"></i>
                               </button>
+                              <form action="{{ url('/favoritos/'.$productoFavorito->id) }}" method="POST"
+                                class="delete-form" style="display: inline;"
+                                data-item-name="el Producto '{{ $productoFavorito->producto->nombre }}'">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn-remove" type="submit" aria-label="Remove from wishlist">
+                                    <i class="bi bi-trash"></i>
+                                  </button>
+                            </form>
                               <div class="sale-badge">{{ $productoFavorito->producto->stock }} disponibles</div>
                             </div>
                             <div class="wishlist-content">
-                              <h4>{{$productoFavorito->producto->nombre}}</h4>
+                              <a href="{{ url('/producto/' . $productoFavorito->producto->id)}}">
+                                <h4>{{ $productoFavorito->producto->nombre }}</h4>
+                              </a>
                               <div class="product-meta">
                                 <div class="rating">
                                   <i class="bi bi-star-fill"></i>
