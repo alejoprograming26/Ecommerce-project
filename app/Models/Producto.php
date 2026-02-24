@@ -23,9 +23,13 @@ class Producto extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
-    
+
     public function imagenes()
     {
         return $this->hasMany(ProductoImagen::class);
+    }
+    public function favoritos()
+    {
+        return $this->hasMany(ProductoFavorito::class, 'producto_id');
     }
 }

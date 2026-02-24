@@ -68,6 +68,12 @@ Route::get('/web/registro', [App\Http\Controllers\DashboardController::class, 'r
 Route::post('/web/registro', [App\Http\Controllers\DashboardController::class, 'crear_cuenta'])->name('web.crear_cuenta');
 Route::get('/buscar', [App\Http\Controllers\WebController::class, 'buscar_producto'])->name('web.buscar_producto');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/favoritos', [App\Http\Controllers\ProductoFavoritoController::class, 'index'])->name('web.favorito.index');
+    Route::post('/favoritos', [App\Http\Controllers\ProductoFavoritoController::class, 'store'])->name('web.favorito.store');
+    Route::delete('/favoritos/{id}', [App\Http\Controllers\ProductoFavoritoController::class, 'destroy'])->name('web.favorito.destroy');
+});
+
 // Para error 404
 Route::fallback(function () {
     if (request()->is('admin*')) {

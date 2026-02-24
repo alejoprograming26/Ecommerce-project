@@ -31,9 +31,20 @@
                                     <img src="{{ asset('storage/' . $imagen) }}" alt="Product Image" class="img-fluid"
                                         loading="lazy">
                                     <div class="product-actions">
-                                        <button class="action-btn wishlist-btn">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
+                                        @auth
+                                            <form action="{{ url('/favoritos') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                                                <input type="hidden" name="redirect_url" value="{{ request()->fullUrl() }}">
+                                                <button type="submit" class="action-btn wishlist-btn">
+                                                    <i class="bi bi-heart"></i>
+                                                </button>
+                                            </form>
+                                        @else
+                                            <a href="{{ route('web.login') }}" class="action-btn wishlist-btn">
+                                                <i class="bi bi-heart"></i>
+                                            </a>
+                                        @endauth
                                         <a href="{{ url('producto/' . $producto->id) }}" class="action-btn quickview-btn">
                                             <i class="bi bi-zoom-in"></i>
                                         </a>

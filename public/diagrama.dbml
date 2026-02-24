@@ -26,3 +26,19 @@ Table Producto_Imagen {
     created_at datetime
     updated_at datetime
 }
+Table Usuario {
+    id int [primary key]
+    nombre varchar(255)
+    email varchar(255) [unique]
+    password varchar(255)
+    created_at datetime
+    updated_at datetime
+}
+
+Table Productos_favoritos{
+  id int [primary key]
+  usuario_id int [ref: > Usuario.id]
+  producto_id int [ref: > Producto.id]
+  created_at datetime
+  updated_at datetime
+}

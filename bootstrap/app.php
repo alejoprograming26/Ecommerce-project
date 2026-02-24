@@ -16,11 +16,16 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function ($e, $request) {
-            if (
-                ($e instanceof NotFoundHttpException || $e instanceof ModelNotFoundException)
-                && $request->is('admin/*')
-            ) {
+        $exceptions->render(function (NotFoundHttpException $e, $request) {
+            if ($request->is('admin/*')) {
+                return response()->view('errors.404-admin', [], 404);
+            }
+
+            return null;
+        });
+        
+        $exceptions->render(function (ModelNotFoundException $e, $request) {
+            if ($request->is('admin/*')) {
                 return response()->view('errors.404-admin', [], 404);
             }
 

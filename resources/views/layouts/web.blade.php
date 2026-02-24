@@ -1,5 +1,5 @@
 @php
-    $ajuste = \App\Models\Ajuste::first() ?? '';
+    $ajuste = \App\Models\Ajuste::first();
 
 @endphp
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>{{ $ajuste->nombre }}</title>
+    <title>{{ $ajuste ? $ajuste->nombre : 'Ecommerce' }}</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -35,6 +35,7 @@
 
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- =======================================================
   * Template Name: NiceShop
@@ -113,9 +114,9 @@
                                         <i class="bi bi-bag-check me-2"></i>
                                         <span>Mis Pedidos</span>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ url('/favoritos') }}">
                                         <i class="bi bi-heart me-2"></i>
-                                        <span>Mi Lista de Deseos</span>
+                                        <span>Mis Favoritos</span>
                                     </a>
                                     <a class="dropdown-item d-flex align-items-center" href="account.html">
                                         <i class="bi bi-gear me-2"></i>
@@ -140,9 +141,14 @@
                         </div>
 
                         <!-- Wishlist -->
-                        <a href="account.html" class="header-action-btn d-none d-md-block">
+                        <a href="{{ url('/favoritos') }}" class="header-action-btn d-none d-md-block">
                             <i class="bi bi-heart"></i>
-                            <span class="badge">0</span>
+                            @php
+                               if (Auth::check()){
+                                $productoFavoritos= App\Models\ProductoFavorito::where('usuario_id', Auth::id())->count();
+                               }
+                            @endphp
+                            <span class="badge">{{$productoFavoritos ?? 0}}</span>
                         </a>
 
                         <!-- Cart -->
@@ -979,6 +985,94 @@
 
     <!-- Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        // Mostrar mensajes flash de Laravel con SweetAlert2
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 3000,
+                toast: true,
+                position: 'top-end'
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+                showConfirmButton: true
+            });
+        @endif
+
+        @if (session('info'))
+            Swal.fire({
+                icon: 'info',
+                title: 'Información',
+                text: '{{ session('info') }}',
+                showConfirmButton: false,
+                timer: 3000,
+                toast: true,
+                position: 'top-end'
+            });
+        @endif
+
+        // Confirmación de eliminación con SweetAlert2
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteForms = document.querySelectorAll('.delete-form');
+
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const itemName = this.dataset.itemName || 'este registro';
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: `¿Deseas eliminar ${itemName}?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    });
+                });
+            });
+
+            const restoreForms = document.querySelectorAll('.restore-form');
+
+            restoreForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const itemName = this.dataset.itemName || 'este registro';
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: `¿Deseas restaurar ${itemName}?`,
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#28a745',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, restaurar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
 </body>
 
