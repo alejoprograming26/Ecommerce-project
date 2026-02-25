@@ -39,10 +39,10 @@ class PaypalController extends Controller
 
         ];
         $response = $this->provider->createOrder($data);
-        dd($response);
-        /*try{
+
+        try{
             $response = $this->provider->createOrder($data);
-            if (isset($response['id']) && $response['id'] != null) {
+            if (isset($response['id']) && $response['status'] === 'CREATED') {
                 // Redirigir al usuario a PayPal para completar el pago
                 foreach ($response['links'] as $link) {
                     if ($link['rel'] === 'approve') {
@@ -55,10 +55,29 @@ class PaypalController extends Controller
             }
         }catch (\Exception $e){
             return redirect()->route('web.carrito.index')->with('info', 'Ocurrió un error al procesar el pago: ' . $e->getMessage());
-        }*/
+        }
     }
 
-    public function gracias() {}
+    public function gracias(Request $request)
+    {
+        $token = $request->input('token');
 
-    public function cancelar() {}
+       try {
+           $response = $this->provider->capturePaymentOrder($token);
+           if (isset($response['status']) && $response['status'] === 'COMPLETED')
+            {
+               // Aquí puedes realizar acciones adicionales, como guardar la información del pedido en tu base de datos
+               return redirect()->route('web.carrito.index')->with('success', '¡Gracias por tu compra! El pago se ha completado exitosamente.');
+           } else {
+               return redirect()->route('web.carrito.index')->with('info', 'El pago no se pudo completar. Por favor, intenta nuevamente.');
+           }
+       }catch (\Exception $e){
+           return redirect()->route('web.carrito.index')->with('info', 'Ocurrió un error al procesar el pago: ' . $e->getMessage());
+       }
+    }
+
+    public function cancelar()
+    {
+
+    }
 }
