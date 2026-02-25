@@ -42,3 +42,11 @@ Table Productos_favoritos{
   created_at datetime
   updated_at datetime
 }
+Table Carritos{
+  id int [primary key]
+  usuario_id int [ref: > Usuario.id]
+  producto_id int [ref: > Producto.id]
+  cantidad int
+  created_at datetime
+  updated_at datetime
+}

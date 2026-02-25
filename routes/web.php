@@ -72,6 +72,12 @@ Route::get('/favoritos', [App\Http\Controllers\ProductoFavoritoController::class
 Route::post('/favoritos', [App\Http\Controllers\ProductoFavoritoController::class, 'store'])->name('web.favorito.store');
 Route::delete('/favoritos/{id}', [App\Http\Controllers\ProductoFavoritoController::class, 'destroy'])->name('web.favorito.destroy');
 
+Route::get('/carrito', [App\Http\Controllers\CarritoController::class, 'index'])->name('web.carrito.index');
+Route::post('/carrito/agregar', [App\Http\Controllers\CarritoController::class, 'store'])->name('web.carrito.store');
+Route::put('/carrito/actualizar', [App\Http\Controllers\CarritoController::class, 'update'])->name('web.carrito.update');
+Route::delete('/carrito/{id}', [App\Http\Controllers\CarritoController::class, 'destroy'])->name('web.carrito.destroy');
+Route::post('/carrito/limpiar', [App\Http\Controllers\CarritoController::class, 'limpiar'])->name('web.carrito.limpiar');
+
 // Para error 404
 Route::fallback(function () {
     if (request()->is('admin*')) {

@@ -71,7 +71,7 @@
 
                         <div class="pricing-section">
                             <div class="price-display">
-                                <span class="sale-price">{{ $producto->precio_venta }} {{ $ajuste->divisa }}</span>
+                                <span class="sale-price">{{ $producto->precio_venta }} {{ $ajuste?->divisa ?? 'USD' }}</span>
                             </div>
                             <div class="savings-info">
                                 <span class="discount-percent">{{ $producto->stock }} Disponibles</span>
@@ -84,6 +84,8 @@
                             </p>
                         </div>
                         <!-- Purchase Options -->
+                        <form action="{{ url('/carrito/agregar') }}" method="POST">
+                         @csrf
                         <div class="purchase-section">
                             <div class="quantity-control">
                                 <label class="control-label">Cantidad:</label>
@@ -92,7 +94,7 @@
                                         <button class="quantity-btn decrease" type="button">
                                             <i class="bi bi-dash"></i>
                                         </button>
-                                        <input type="number" class="quantity-input" value="1" min="1"
+                                        <input type="number" name="cantidad" class="quantity-input" value="1" min="1"
                                             max="{{ $producto->stock }}">
                                         <button class="quantity-btn increase" type="button">
                                             <i class="bi bi-plus"></i>
@@ -102,11 +104,12 @@
                             </div>
 
                             <div class="action-buttons">
-                                <a href="{{ url('/carrito') }}" class="btn primary-action">
-                                    <i class="bi bi-bag-plus"></i>
-                                    Agregar al Carrito
-                                </a>
 
+                                    <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                                    <button type="submit" class="btn primary-action">
+                                        <i class="bi bi-cart3"></i>  Añadir al carrito
+                                    </button>
+                          </form>
                                 @auth
                                     <form action="{{ url('/favoritos') }}" method="POST">
                                         @csrf

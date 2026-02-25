@@ -101,7 +101,15 @@
                                   <span class="current">{{$productoFavorito->producto->precio_venta}} {{ $ajuste->divisa}}</span>
                                 </div>
                               </div>
-                              <button type="button" class="btn-add-cart">Agregar al carrito</button>
+
+                              <form action="{{ url('/carrito/agregar') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="producto_id" value="{{ $productoFavorito->producto->id }}">
+                                <input type="hidden" name="cantidad" value="1">
+                                <button type="submit" class="btn-add-cart">
+                                    <i class="bi bi-cart3"></i>  Añadir al carrito
+                                </button>
+                            </form>
                             </div>
                           </div>
 

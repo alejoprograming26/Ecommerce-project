@@ -110,7 +110,7 @@
                                         <i class="bi bi-person-circle me-2"></i>
                                         <span>Mi Perfil</span>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ url('/carrito') }}">
                                         <i class="bi bi-bag-check me-2"></i>
                                         <span>Mis Pedidos</span>
                                     </a>
@@ -152,9 +152,14 @@
                         </a>
 
                         <!-- Cart -->
-                        <a href="cart.html" class="header-action-btn">
+                        <a href="{{ url('/carrito') }}" class="header-action-btn">
                             <i class="bi bi-cart3"></i>
-                            <span class="badge">3</span>
+                            @php
+                               if (Auth::check()){
+                                $productoCarrito= App\Models\Carrito::where('usuario_id', Auth::id())->count();
+                               }
+                            @endphp
+                            <span class="badge">{{$productoCarrito ?? 0}}</span>
                         </a>
 
                         <!-- Mobile Navigation Toggle -->

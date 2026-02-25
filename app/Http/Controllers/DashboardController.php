@@ -2,36 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Ajuste;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         if (Auth::check()) {
-            $ajuste= Ajuste::first();
+            $ajuste = Ajuste::first();
+
             return view('web.dashboard', compact('ajuste'));
-        }else{
+        } else {
             return redirect()->route('web.login');
         }
 
     }
+
     public function carrito()
     {
-         if (Auth::check()) {
-            $ajuste= Ajuste::first();
-            return view('web.carrito', compact('ajuste'));
-        }else{
+        if (Auth::check()) {
+            $ajuste = Ajuste::first();
+
+            return view('web.carritos', compact('ajuste'));
+        } else {
             return redirect()->route('web.login');
         }
 
     }
-        public function login()
+
+    public function login()
     {
         $ajuste = Ajuste::first();
+
         return view('web.login', compact('ajuste'));
     }
+
     public function autenticacion(Request $request)
     {
         $request->validate([
@@ -47,20 +55,23 @@ class DashboardController extends Controller
             return redirect('/web/login')->withErrors(['login_error' => 'Credenciales inválidas']);
         }
     }
+
     public function registro()
     {
         $ajuste = Ajuste::first();
+
         return view('web.registro', compact('ajuste'));
     }
+
     public function crear_cuenta(Request $request)
     {
-         //return response()->json($request->all());
+        // return response()->json($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
-        $user = new User();
+        $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->input('password'));
@@ -68,6 +79,7 @@ class DashboardController extends Controller
 
         $user->assignRole('CLIENTE');
         Auth::login($user);
+
         return redirect('/dashboard');
     }
 }

@@ -45,12 +45,18 @@
                                                 <i class="bi bi-heart"></i>
                                             </a>
                                         @endauth
-                                        <a href="{{ url('producto/' . $producto->id) }}" class="action-btn quickview-btn">
-                                            <i class="bi bi-zoom-in"></i>
-                                        </a>
-                                    </div>
-                                    <a href="{{ url('/carrito') }}" class="cart-btn" style="text-align: center">Agregar al
-                                        Carrito</a>
+                                    <a href="{{ url('producto/' . $producto->id) }}" class="action-btn quickview-btn">
+                                        <i class="bi bi-zoom-in"></i>
+                                    </a>
+                                </div>
+                                <form action="{{ url('/carrito/agregar') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                                    <input type="hidden" name="cantidad" value="1">
+                                    <button type="submit" class="cart-btn" style="text-align: center">
+                                        <i class="bi bi-cart3"></i> Agregar al Carrito
+                                    </button>
+                                </form>
                                 </div>
                                 <div class="product-info">
                                     <div class="product-category">{{ $producto->nombre }}</div>
