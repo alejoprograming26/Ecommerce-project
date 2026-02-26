@@ -50,3 +50,24 @@ Table Carritos{
   created_at datetime
   updated_at datetime
 }
+Table Ordenes{
+  id int [primary key]
+  usuario_id int [ref: > Usuario.id]
+  total float
+  divisa varchar(10)
+  estado_pago varchar(50)
+  estado_orden varchar(50)
+  transaccion_id varchar(255)
+  direccion_enviar text
+  created_at datetime
+  updated_at datetime
+}
+Table detalle_ordenes{
+  id int [primary key]
+  orden_id int [ref: > Ordenes.id]
+  producto_id int [ref: > Producto.id]
+  cantidad int
+  precio decimal(10,2)
+  created_at datetime
+  updated_at datetime
+}

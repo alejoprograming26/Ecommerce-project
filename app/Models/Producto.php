@@ -40,4 +40,8 @@ class Producto extends Model
     {
         return $this->hasMany(Carrito::class, 'producto_id');
     }
+    public function detallesOrden()
+    {
+        return $this->hasMany(DetalleOrden::class, 'producto_id');
+    }
 }
