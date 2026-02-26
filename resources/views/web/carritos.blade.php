@@ -129,22 +129,27 @@
                 <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
                     <div class="cart-summary">
                         <h4 class="summary-title">Resumen del Pedido</h4>
+                        <form action="{{ url('/paypal/pago') }}" method="POST">
+                            @csrf
+                            <div>
+                                <span class="summary-label">Dato de Envío(*)</span><br><br>
+                                <input type="text" name="direccion_envio" class="form-control" placeholder="Dirección"
+                                    required < </div>
 
-                        <div class="summary-total">
-                            <span class="summary-label">Total</span>
-                            <span class="summary-value">{{ $total }} {{ $ajuste->divisa }}</span>
-                        </div>
+                                <div class="summary-total">
+                                    <span class="summary-label">Total</span>
+                                    <span class="summary-value">{{ $total }} {{ $ajuste->divisa }}</span>
+                                </div>
 
-                        <div class="checkout-button">
-                            <form action="{{ url('/paypal/pago') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="total" value="{{ $total }}">
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="bi bi-paypal"></i> Realizar Pago
-                                </button>
-                            </form>
-                        </div>
+                                <div class="checkout-button">
 
+                                    <input type="hidden" name="total" value="{{ $total }}">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="bi bi-paypal"></i> Realizar Pago
+                                    </button>
+
+                                </div>
+                        </form>
                         <div class="continue-shopping">
                             <a href="{{ url('/') }}" class="btn btn-link w-100">
                                 <i class="bi bi-arrow-left"></i> Continua Comprando

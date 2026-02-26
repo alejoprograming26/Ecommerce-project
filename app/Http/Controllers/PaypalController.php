@@ -24,7 +24,14 @@ class PaypalController extends Controller
     public function pago(Request $request)
     {
        // return response()->json($request->all());
+        $request->validate([
+            'direccion_envio' => 'required|string|max:255',
+            'total' => 'required|numeric|min:0.01',
+        ]);
+        $direccion_formulario = $request->input('direccion_envio');
         $total = $request->input('total');
+        $request->session()->put('direccion_envio', $direccion_formulario);
+
         $data =[
             'intent' => 'CAPTURE',
             'purchase_units' => [
@@ -74,11 +81,13 @@ class PaypalController extends Controller
                // Aquí puedes realizar acciones adicionales, como guardar la información del pedido en tu base de datos
              $DatosPago = $response['purchase_units'][0]['payments']['captures'][0];
                 $total = $DatosPago['amount']['value'];
-                $transaccion_id = $DatosPago['id'];
-                $estado_pago = $DatosPago['status'];
-                $divisa = $DatosPago['amount']['currency_code'];
+               $transaccion_id = $DatosPago['id'];
+               $estado_pago = $DatosPago['status'];
+               $divisa = $DatosPago['amount']['currency_code'];
+               $estado_orden = 'Procesando';
+               $direccion_envio = $request->session()->get('direccion_envio', 'No proporcionada');
 
-               return redirect()->route('web.carrito.index')->with('success', '¡Gracias por tu compra! El pago se ha completado exitosamente.');
+              // return redirect()->route('web.carrito.index')->with('success', '¡Gracias por tu compra! El pago se ha completado exitosamente.');
            } else {
                return redirect()->route('web.carrito.index')->with('info', 'El pago no se pudo completar. Por favor, intenta nuevamente.');
            }
