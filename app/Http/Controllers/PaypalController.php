@@ -9,6 +9,10 @@ use Srmklive\PayPal\Services\ExpressCheckout;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Orden;
+use App\Models\Carrito;
+use App\Models\DetalleOrden;
+use Illuminate\Support\Facades\DB;
+
 class PaypalController extends Controller
 {
     protected $provider;
@@ -87,6 +91,48 @@ class PaypalController extends Controller
                $estado_orden = 'Procesando';
                $direccion_envio = $request->session()->get('direccion_envio', 'No proporcionada');
 
+               //Crear la orden en la base de datos
+               DB::beginTransaction();
+
+               try {
+                // Crear la orden en la base de datos
+                $orden = new Orden();
+                $orden->usuario_id = $usuario_id;
+                $orden->total = $total;
+                $orden->divisa = $divisa;
+                $orden->estado_pago = $estado_pago;
+                $orden->estado_orden = $estado_orden;
+                $orden->transaccion_id = $transaccion_id;
+                $orden->direccion_envio = $direccion_envio;
+                $orden->save();
+
+                // Guardar los detalles de la orden
+                $carritos =Carrito::where('usuario_id', $usuario_id)->get();
+                foreach ($carritos as $item) {
+                    $detalle = new DetalleOrden();
+                    $detalle->orden_id = $orden->id;
+                    $detalle->producto_id = $item->producto_id;
+                    $detalle->cantidad = $item->cantidad;
+                    $detalle->precio = $item->producto->precio_venta;
+                    $detalle->save();
+
+                    //Descontar el stock del producto
+                    $producto = $item->producto;
+                    $producto->stock -= $item->cantidad;
+                    $producto->save();
+
+                    //Eliminar el Producto del carrito
+                    $item->delete();
+                }
+                DB::commit();
+                return redirect()->route('web.paypal.orden_completado')->with('success', '¡Gracias por tu compra! El pago se ha completado exitosamente.');
+
+               } catch (\Exception $e) {
+                     DB::rollBack();
+                     return redirect()->route('web.carrito.index')->with('info', 'Ocurrió un error al guardar la orden: ' . $e->getMessage());
+               }
+
+
               // return redirect()->route('web.carrito.index')->with('success', '¡Gracias por tu compra! El pago se ha completado exitosamente.');
            } else {
                return redirect()->route('web.carrito.index')->with('info', 'El pago no se pudo completar. Por favor, intenta nuevamente.');
@@ -95,9 +141,15 @@ class PaypalController extends Controller
            return redirect()->route('web.carrito.index')->with('info', 'Ocurrió un error al procesar el pago: ' . $e->getMessage());
        }
     }
+     public function orden_completado()
+    {
+
+       return view('web.orden_completado');
+    }
 
     public function cancelar()
     {
 
     }
+
 }

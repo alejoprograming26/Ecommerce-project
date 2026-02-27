@@ -81,6 +81,7 @@ Route::post('/carrito/limpiar', [App\Http\Controllers\CarritoController::class, 
 // Ruta Paypal
 Route::post('/paypal/pago', [App\Http\Controllers\PaypalController::class, 'pago'])->name('web.paypal.pago');
 Route::get('/paypal/gracias', [App\Http\Controllers\PaypalController::class, 'gracias'])->name('web.paypal.gracias');
+Route::get('/paypal/orden_completado', [App\Http\Controllers\PaypalController::class, 'orden_completado'])->name('web.paypal.orden_completado');
 Route::get('/paypal/cancelar', [App\Http\Controllers\PaypalController::class, 'cancelar'])->name('web.paypal.cancelar');
 
 // Para error 404
