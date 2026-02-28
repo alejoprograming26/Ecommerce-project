@@ -12,7 +12,9 @@ class OrdenController extends Controller
      */
     public function index()
     {
-        //
+        $pedidos = Orden::with('detalles')->orderBy('id', 'desc')->paginate(5);
+        //return response()->json($ordenes);
+        return view('admin.pedidos.index', compact('pedidos'));
     }
 
     /**

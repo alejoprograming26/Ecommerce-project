@@ -18,6 +18,7 @@ class ProductoController extends Controller
     {
         $ajuste = Ajuste::first();
         $buscar = $request->input('buscar');
+        $categoria_id = $request->input('categoria_id');
         $query = Producto::query();
 
         if ($buscar) {
@@ -28,9 +29,15 @@ class ProductoController extends Controller
                     ->orWhere('descripcion_larga', 'like', '%'.$buscar.'%');
             });
         }
-        $productos = $query->paginate(10);
 
-        return view('admin.productos.index', compact('productos', 'ajuste'));
+        if ($categoria_id) {
+            $query->where('categoria_id', $categoria_id);
+        }
+
+        $productos = $query->paginate(10);
+        $categorias = Categoria::all();
+
+        return view('admin.productos.index', compact('productos', 'ajuste', 'categorias'));
     }
 
     /**

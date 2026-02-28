@@ -21,10 +21,16 @@
                         <div class="col-md-6">
                             <form action="{{ url('/admin/productos') }}" method="GET">
                                 <div class="input-group">
+                                    <select name="categoria_id" class="form-select">
+                                        <option value="">Todas las Categorías</option>
+                                        @foreach($categorias as $categoria)
+                                            <option value="{{ $categoria->id }}" {{ (isset($_REQUEST['categoria_id']) && $_REQUEST['categoria_id'] == $categoria->id) ? 'selected' : '' }}>{{ $categoria->nombre }}</option>
+                                        @endforeach
+                                    </select>
                                     <input type="text" name="buscar" class="form-control"
                                         placeholder="Buscar Producto..." value="{{ $_REQUEST['buscar'] ?? '' }}">
                                     <button class="btn btn-primary" type="submit">Buscar</button>
-                                    @if (isset($_REQUEST['buscar']))
+                                    @if (isset($_REQUEST['buscar']) || isset($_REQUEST['categoria_id']))
                                         <a href="{{ url('/admin/productos') }}" class="btn btn-secondary"><i
                                                 class="bi bi-x-circle"></i> Limpiar</a>
                                     @endif

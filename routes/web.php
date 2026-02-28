@@ -57,6 +57,12 @@ Route::get('admin/productos/{id}/imagenes', [App\Http\Controllers\ProductoContro
 Route::post('admin/productos/{id}/upload_imagen', [App\Http\Controllers\ProductoController::class, 'upload_imagen'])->middleware('auth')->name('admin.productos.upload_imagen');
 Route::delete('admin/productos/{id}/eliminar_imagen/{imagen_id}', [App\Http\Controllers\ProductoController::class, 'eliminar_imagen'])->middleware('auth')->name('admin.productos.eliminar_imagen');
 
+Route::get('admin/pedidos', [App\Http\Controllers\OrdenController::class, 'index'])->middleware('auth')->name('admin.pedidos.index');
+Route::get('admin/pedidos/{id}', [App\Http\Controllers\OrdenController::class, 'show'])->middleware('auth')->name('admin.pedidos.show');
+Route::get('admin/pedidos/{id}/edit', [App\Http\Controllers\OrdenController::class, 'edit'])->middleware('auth')->name('admin.pedidos.edit');
+Route::put('admin/pedidos/{id}', [App\Http\Controllers\OrdenController::class, 'update'])->middleware('auth')->name('admin.pedidos.update');
+Route::delete('admin/pedidos/{id}', [App\Http\Controllers\OrdenController::class, 'destroy'])->middleware('auth')->name('admin.pedidos.destroy');
+
 // Para la webs
 Route::get('/', [App\Http\Controllers\WebController::class, 'index'])->name('web.index');
 Route::get('/producto/{id}', [App\Http\Controllers\ProductoController::class, 'detalle_producto'])->name('web.detalle_producto');
