@@ -20,9 +20,10 @@ class OrdenController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $pedido = Orden::find($id);
+        return view('admin.pedidos.create', compact('pedido'));
     }
 
     /**

@@ -221,7 +221,7 @@
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>
                                         Registrar</button>
-                                    <a href="{{ route('admin.categorias.index') }}" class="btn btn-secondary"><i
+                                    <a href="{{ route('admin.productos.index') }}" class="btn btn-secondary"><i
                                             class="bi bi-arrow-left"></i>
                                         volver</a>
                                 </div>
