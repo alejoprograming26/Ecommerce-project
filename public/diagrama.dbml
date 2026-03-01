@@ -59,6 +59,7 @@ Table Ordenes{
   estado_orden varchar(50)
   transaccion_id varchar(255)
   direccion_enviar text
+  nota text 
   created_at datetime
   updated_at datetime
 }

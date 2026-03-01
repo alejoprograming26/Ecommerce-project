@@ -59,6 +59,7 @@ Route::delete('admin/productos/{id}/eliminar_imagen/{imagen_id}', [App\Http\Cont
 
 Route::get('admin/pedidos', [App\Http\Controllers\OrdenController::class, 'index'])->middleware('auth')->name('admin.pedidos.index');
 Route::get('admin/pedidos/{id}', [App\Http\Controllers\OrdenController::class, 'create'])->middleware('auth')->name('admin.pedidos.create');
+Route::post('admin/pedidos/{id}', [App\Http\Controllers\OrdenController::class, 'store'])->middleware('auth')->name('admin.pedidos.store');
 
 
 // Para la webs

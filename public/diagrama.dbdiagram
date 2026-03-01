@@ -21,6 +21,36 @@
       "schemaName": "public",
       "x": -162.00120144613405,
       "y": 512.9975599390017
+    },
+    {
+      "name": "Usuario",
+      "schemaName": "public",
+      "x": -162.00120144613405,
+      "y": 754.9975599390017
+    },
+    {
+      "name": "Productos_favoritos",
+      "schemaName": "public",
+      "x": 98.30739230386595,
+      "y": 754.9975599390017
+    },
+    {
+      "name": "Carritos",
+      "schemaName": "public",
+      "x": 347.729755585116,
+      "y": 754.9975599390017
+    },
+    {
+      "name": "Ordenes",
+      "schemaName": "public",
+      "x": 592.969013397616,
+      "y": 754.9975599390017
+    },
+    {
+      "name": "detalle_ordenes",
+      "schemaName": "public",
+      "x": -162.00120144613405,
+      "y": 1028.9975599390018
     }
   ],
   "tableGroupCollapseStates": [],
@@ -52,6 +82,111 @@
         "producto_id"
       ],
       "secondTableName": "Producto_Imagen",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "Usuario",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "usuario_id"
+      ],
+      "secondTableName": "Productos_favoritos",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "Producto",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "producto_id"
+      ],
+      "secondTableName": "Productos_favoritos",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "Usuario",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "usuario_id"
+      ],
+      "secondTableName": "Carritos",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "Producto",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "producto_id"
+      ],
+      "secondTableName": "Carritos",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "Usuario",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "usuario_id"
+      ],
+      "secondTableName": "Ordenes",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "Ordenes",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "orden_id"
+      ],
+      "secondTableName": "detalle_ordenes",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "Producto",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "producto_id"
+      ],
+      "secondTableName": "detalle_ordenes",
       "secondSchemaName": "public",
       "secondRelation": "*",
       "checkPoints": []

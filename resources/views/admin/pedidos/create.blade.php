@@ -129,15 +129,19 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="descripcion_larga">Nota</label>
-                                <div class="input-group">
-                                    <div style="width: 100%">
-                                        <textarea class="form-control ckeditor" name="nota" id="nota" rows="6" placeholder="">{{ old('nota') }}</textarea>
+                                <form action="{{ url('/admin/pedidos/' . $pedido->id) }}" method="POST">
+                                    @csrf
+                                    <label for="descripcion_larga">Nota</label>
+                                    <div class="input-group">
+                                        <div style="width: 100%">
+                                            <textarea class="form-control ckeditor" name="nota" id="nota" rows="6"
+                                                placeholder="Descripcion de la Orden">{{ old('nota') }}</textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                @error('nota')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                    @error('nota')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </form>
                             </div>
 
                             <style>
@@ -210,6 +214,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                 <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>
+                                        Registrar</button>
                                 <a href="{{ route('admin.pedidos.index') }}" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left"></i> volver
                                 </a>

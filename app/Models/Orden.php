@@ -15,6 +15,7 @@ class Orden extends Model
         'estado_orden',
         'transaccion_id',
         'direccion_envio',
+        'nota',
     ];
     public function usuario()
     {
