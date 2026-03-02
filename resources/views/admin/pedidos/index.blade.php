@@ -15,16 +15,36 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12 mb-3">
                             <form action="{{ url('/admin/pedidos') }}" method="GET">
-                                <div class="input-group">
-                                    <input type="text" name="buscar" class="form-control"
-                                        placeholder="Buscar Pedidos..." value="{{ $_REQUEST['buscar'] ?? '' }}">
-                                    <button class="btn btn-primary" type="submit">Buscar</button>
-                                    @if (isset($_REQUEST['buscar']))
-                                        <a href="{{ url('/admin/pedidos') }}" class="btn btn-secondary"><i
-                                                class="bi bi-x-circle"></i> Limpiar</a>
-                                    @endif
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                            <input type="text" name="buscar" class="form-control"
+                                                placeholder="Cliente, Email o Producto..." value="{{ request('buscar') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-funnel"></i></span>
+                                            <select name="estado" class="form-select">
+                                                <option value="">Estado: Todos</option>
+                                                <option value="Procesando" {{ request('estado') == 'Procesando' ? 'selected' : '' }}>Procesando</option>
+                                                <option value="Enviado" {{ request('estado') == 'Enviado' ? 'selected' : '' }}>Enviado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="bi bi-search"></i> Buscar
+                                        </button>
+                                        @if (request('buscar') || request('estado'))
+                                            <a href="{{ url('/admin/pedidos') }}" class="btn btn-secondary">
+                                                <i class="bi bi-x-circle"></i> Limpiar Filtros
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
                             </form>
                         </div>

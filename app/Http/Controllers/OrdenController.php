@@ -11,10 +11,32 @@ class OrdenController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pedidos = Orden::with('detalles')->orderBy('id', 'desc')->paginate(5);
-        //return response()->json($ordenes);
+        $buscar = $request->buscar;
+        $estado = $request->estado;
+
+        $query = Orden::with(['detalles', 'usuario'])->orderBy('id', 'desc');
+
+        if ($buscar) {
+            $query->where(function($q) use ($buscar) {
+                // Buscar por cliente (nombre o email)
+                $q->whereHas('usuario', function($q2) use ($buscar) {
+                    $q2->where('name', 'LIKE', "%{$buscar}%")
+                      ->orWhere('email', 'LIKE', "%{$buscar}%");
+                })
+                // O buscar por nombre de producto en los detalles
+                ->orWhereHas('detalles.producto', function($q2) use ($buscar) {
+                    $q2->where('nombre', 'LIKE', "%{$buscar}%");
+                });
+            });
+        }
+
+        if ($estado) {
+            $query->where('estado_orden', $estado);
+        }
+
+        $pedidos = $query->paginate(5)->appends($request->query());
         return view('admin.pedidos.index', compact('pedidos'));
     }
 
