@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Orden;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
+use App\Models\Ajuste;
 class OrdenController extends Controller
 {
     /**
@@ -33,6 +34,7 @@ class OrdenController extends Controller
     {
         //return response()->json($request->all());
         $orden = Orden::findOrFail($request->id);
+        $ajuste = Ajuste::first();
         $request->validate([
             'nota'=> 'required|string',
         ]);
@@ -40,6 +42,9 @@ class OrdenController extends Controller
         $orden->nota = $request->input('nota');
          $orden->estado_orden = 'Enviado';
         $orden->save();
+
+        Mail::to($orden->usuario->email)->send(new \App\Mail\PedidoEnviadoMail($orden, $ajuste));
+
         return redirect()->route('admin.pedidos.index')->with('success', 'Nota agregada al pedido exitosamente.');
     }
 
