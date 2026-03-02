@@ -125,105 +125,110 @@
                     </div>
 
 
-                    <h5>Tomar Notas del Pedido</h5>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <form action="{{ url('/admin/pedidos/' . $pedido->id) }}" method="POST">
-                                    @csrf
-                                    <label for="descripcion_larga">Nota</label>
-                                    <div class="input-group">
-                                        <div style="width: 100%">
-                                            <textarea class="form-control ckeditor" name="nota" id="nota" rows="6"
-                                                placeholder="Descripcion de la Orden">{{ old('nota') }}</textarea>
+
+                    @if ($pedido->estado_orden == 'Procesando')
+                        <h5>Tomar Notas del Pedido</h5>
+                        <form action="{{ url('/admin/pedidos/' . $pedido->id) }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+
+                                        <label for="descripcion_larga">Nota</label>
+                                        <div class="input-group">
+                                            <div style="width: 100%">
+                                                <textarea class="form-control ckeditor" name="nota" id="nota" rows="6" placeholder="Nota del Pedido">{{ old('nota') }}</textarea>
+                                            </div>
                                         </div>
+                                        @error('nota')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+
                                     </div>
-                                    @error('nota')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </form>
+
+
+                                </div>
                             </div>
 
-                            <style>
-                                /* Hacer que el editor herede el fondo y color del contenedor (soporta modo oscuro) */
-                                .ck-editor__editable_inline,
-                                .ck-editor__editable,
-                                .ck-content {
-                                    background: transparent !important;
-                                    color: inherit !important;
-                                }
-
-                                .ck.ck-toolbar,
-                                .ck-toolbar {
-                                    background: transparent !important;
-                                    color: inherit !important;
-                                    border: none !important;
-                                }
-
-                                .ck.ck-toolbar .ck-button {
-                                    color: inherit !important;
-                                }
-
-                                /* Paneles y dropdowns: semitransparente para legibilidad en modo oscuro */
-                                .ck.ck-dropdown__panel,
-                                .ck.ck-panel,
-                                .ck-balloon-panel {
-                                    background: rgba(0, 0, 0, 0.65) !important;
-                                    color: #fff !important;
-                                }
-
-                                /* Asegurar texto blanco en areas oscuras típicas */
-                                .card.bg-dark .ck-editor__editable_inline,
-                                body.dark .ck-editor__editable_inline {
-                                    color: #fff !important;
-                                }
-                            </style>
-
-                            <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    // Editor para el contenido (más completo)
-                                    ClassicEditor
-                                        .create(document.querySelector('#nota'), {
-                                            toolbar: {
-                                                items: [
-                                                    'heading', '|',
-                                                    'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
-                                                    'link', 'bulletedList', 'numberedList', '|',
-                                                    'outdent', 'indent', '|',
-                                                    'alignment', '|',
-                                                    'blockQuote', 'insertTable', 'mediaEmbed', '|',
-                                                    'undo', 'redo', '|',
-                                                    'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', '|',
-                                                    'code', 'codeBlock', 'htmlEmbed', '|',
-                                                    'sourceEditing'
-                                                ],
-                                                shouldNotGroupWhenFull: true
-                                            },
-                                            language: 'es',
-                                        })
-                                        .catch(error => {
-                                            console.error(error);
-                                        });
-                                });
-                            </script>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                 <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>
-                                        Registrar</button>
-                                <a href="{{ route('admin.pedidos.index') }}" class="btn btn-secondary">
-                                    <i class="bi bi-arrow-left"></i> volver
-                                </a>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>
+                                            Tomar Pedido</button>
+                                        <a href="{{ route('admin.pedidos.index') }}" class="btn btn-secondary">
+                                            <i class="bi bi-arrow-left"></i> volver
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
+    <style>
+        /* Hacer que el editor herede el fondo y color del contenedor (soporta modo oscuro) */
+        .ck-editor__editable_inline,
+        .ck-editor__editable,
+        .ck-content {
+            background: transparent !important;
+            color: inherit !important;
+        }
+
+        .ck.ck-toolbar,
+        .ck-toolbar {
+            background: transparent !important;
+            color: inherit !important;
+            border: none !important;
+        }
+
+        .ck.ck-toolbar .ck-button {
+            color: inherit !important;
+        }
+
+        /* Paneles y dropdowns: semitransparente para legibilidad en modo oscuro */
+        .ck.ck-dropdown__panel,
+        .ck.ck-panel,
+        .ck-balloon-panel {
+            background: rgba(0, 0, 0, 0.65) !important;
+            color: #fff !important;
+        }
+
+        /* Asegurar texto blanco en areas oscuras típicas */
+        .card.bg-dark .ck-editor__editable_inline,
+        body.dark .ck-editor__editable_inline {
+            color: #fff !important;
+        }
+    </style>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Editor para el contenido (más completo)
+            ClassicEditor
+                .create(document.querySelector('#nota'), {
+                    toolbar: {
+                        items: [
+                            'heading', '|',
+                            'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
+                            'link', 'bulletedList', 'numberedList', '|',
+                            'outdent', 'indent', '|',
+                            'alignment', '|',
+                            'blockQuote', 'insertTable', 'mediaEmbed', '|',
+                            'undo', 'redo', '|',
+                            'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', '|',
+                            'code', 'codeBlock', 'htmlEmbed', '|',
+                            'sourceEditing'
+                        ],
+                        shouldNotGroupWhenFull: true
+                    },
+                    language: 'es',
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
 @endsection

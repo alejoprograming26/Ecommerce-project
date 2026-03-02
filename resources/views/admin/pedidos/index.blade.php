@@ -59,17 +59,22 @@
                                             @foreach ($pedido->detalles as $detalle)
                                                 <li><b>{{ $detalle->producto->nombre }}</b></li>
                                                 Cantidad: {{ $detalle->cantidad }}
-                                                Precio: {{ $detalle->precio }} {{ $detalle->divisa}}
+                                                Precio: {{ $detalle->precio }} {{ $detalle->divisa }}
                                             @endforeach
                                         </ul>
 
 
-                                    </td>    
+                                    </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group">
-                                             <a href="{{ url('/admin/pedidos/' . $pedido->id) }}" title="Ver Producto"
-                                                class="btn btn-sm btn-success mb-3">
-                                                <i class="bi bi-truck"></i> Tomar Pedido
+                                            <a href="{{ url('/admin/pedidos/' . $pedido->id) }}" title="Ver Producto"
+                                                class="@if ($pedido->estado_orden == 'Procesando') btn btn-sm btn-success mb-3 @else btn btn-sm btn-info mb-3 @endif">
+                                                <i class="bi bi-truck"></i>
+                                                @if ($pedido->estado_orden == 'Procesando')
+                                                    Tomar Pedido
+                                                @else
+                                                    Ver Pedido
+                                                @endif
                                             </a>
                                         </div>
                                     </td>

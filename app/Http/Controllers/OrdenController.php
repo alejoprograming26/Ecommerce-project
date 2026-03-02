@@ -31,7 +31,16 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        //return response()->json($request->all());
+        $orden = Orden::findOrFail($request->id);
+        $request->validate([
+            'nota'=> 'required|string',
+        ]);
+
+        $orden->nota = $request->input('nota');
+         $orden->estado_orden = 'Enviado';
+        $orden->save();
+        return redirect()->route('admin.pedidos.index')->with('success', 'Nota agregada al pedido exitosamente.');
     }
 
     /**
