@@ -108,4 +108,59 @@
             </a>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <a href="{{ route('admin.pedidos.index') }}" class="text-decoration-none-custom">
+                <div class="card h-100 shadow-sm border-0 card-hover">
+                    <div class="card-body d-flex align-items-center px-4 py-4">
+                        <div class="stats-icon purple me-4 d-flex justify-content-center align-items-center"
+                            style="width: 60px; height: 60px; border-radius: 0.5rem;">
+                            <i class="" style="font-size: 2rem;"><i class="bi bi-cart-plus-fill"></i></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted fw-semibold mb-1 text-uppercase"
+                                style="font-size: 0.8rem; letter-spacing: 0.5px;">Pedidos en Nuevos</h6>
+                            <h3 class="fw-bold mb-0 ">{{ $total_pedidos_nuevo }} Totales</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <a href="{{ route('admin.pedidos.index') }}" class="text-decoration-none-custom">
+                <div class="card h-100 shadow-sm border-0 card-hover">
+                    <div class="card-body d-flex align-items-center px-4 py-4">
+                        <div class="stats-icon blue me-4 d-flex justify-content-center align-items-center"
+                            style="width: 60px; height: 60px; border-radius: 0.5rem;">
+                            <i class="" style="font-size: 2rem;"><i class="bi bi-send-check-fill"></i></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted fw-semibold mb-1 text-uppercase"
+                                style="font-size: 0.8rem; letter-spacing: 0.5px;">Pedidos Enviados</h6>
+                            <h3 class="fw-bold mb-0 ">{{ $total_pedidos_enviados }} Totales</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+         <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <a href="{{ route('admin.pedidos.index') }}" class="text-decoration-none-custom">
+                <div class="card h-100 shadow-sm border-0 card-hover">
+                    <div class="card-body d-flex align-items-center px-4 py-4">
+                        <div class="stats-icon green me-4 d-flex justify-content-center align-items-center"
+                            style="width: 60px; height: 60px; border-radius: 0.5rem;">
+                            <i class=""><i class="bi bi-dropbox"></i></i>
+                        </div>
+                        <div>
+                            <h6 class="text-muted fw-semibold mb-1 text-uppercase"
+                                style="font-size: 0.8rem; letter-spacing: 0.5px;">Pedidos Totales</h6>
+                            <h3 class="fw-bold mb-0 ">{{ $total_pedidos }} Totales</h3>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+    </div>
 @endsection
