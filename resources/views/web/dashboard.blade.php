@@ -64,85 +64,81 @@
                   </div>
 
                   <div class="orders-grid">
-                    <!-- Order Card 1 -->
+                   
+                  <!-- Order Card 1 -->
+
+                  @foreach($pedidos as $pedido)
+                    
                     <div class="order-card" data-aos="fade-up" data-aos-delay="100">
                       <div class="order-header">
                         <div class="order-id">
                           <span class="label">Order ID:</span>
-                          <span class="value">#ORD-2024-1278</span>
+                          <span class="value">ORD-{{$pedido->id}}</span>
                         </div>
-                        <div class="order-date">Feb 20, 2025</div>
+                        <div class="order-date">{{$pedido->created_at->format('M d, Y')}}</div>
                       </div>
                       <div class="order-content">
                         <div class="product-grid">
-                          <img src="assets/img/product/product-1.webp" alt="Product" loading="lazy">
-                          <img src="assets/img/product/product-2.webp" alt="Product" loading="lazy">
-                          <img src="assets/img/product/product-3.webp" alt="Product" loading="lazy">
+                            @php
+                                $cont_items=0;
+                            @endphp
+                            @foreach($pedido->detalles as $detalle)
+                                @php
+                                    $imagen_producto = $detalle->producto->imagenes->first();
+                                    $imagen = $imagen_producto->imagen ?? '';
+                                    $cont_items=$cont_items+1;
+                                @endphp
+                                <img src="{{ asset('storage/' . $imagen)}}" alt="Product" loading="lazy">
+                            @endforeach
+                            
                         </div>
                         <div class="order-info">
                           <div class="info-row">
-                            <span>Status</span>
-                            <span class="status processing">Processing</span>
+                            <span>Estado de la Orden</span>
+                            <span class="status {{ $pedido->estado_orden == 'Enviado' ? 'delivered' : ($pedido->estado_orden == 'Procesando' ? 'processing' : '') }}">{{$pedido->estado_orden}}</span>
                           </div>
                           <div class="info-row">
                             <span>Items</span>
-                            <span>3 items</span>
+                            <span>{{$cont_items}} Productos</span>
                           </div>
                           <div class="info-row">
                             <span>Total</span>
-                            <span class="price">$789.99</span>
+                            <span class="price">{{$pedido->total}}   {{$pedido->divisa}}</span>
                           </div>
                         </div>
                       </div>
                       <div class="order-footer">
-                        <button type="button" class="btn-track" data-bs-toggle="collapse" data-bs-target="#tracking1" aria-expanded="false">Track Order</button>
-                        <button type="button" class="btn-details" data-bs-toggle="collapse" data-bs-target="#details1" aria-expanded="false">View Details</button>
+                        <button type="button" class="btn-track" data-bs-toggle="collapse" data-bs-target="#tracking{{$pedido->id}}" aria-expanded="false">Seguimiento de la Orden</button>
+                        <button type="button" class="btn-details" data-bs-toggle="collapse" data-bs-target="#details{{$pedido->id}}" aria-expanded="false">Detalles de la Orden</button>
                       </div>
 
                       <!-- Order Tracking -->
-                      <div class="collapse tracking-info" id="tracking1">
+                      <div class="collapse tracking-info" id="tracking{{$pedido->id}}">
                         <div class="tracking-timeline">
                           <div class="timeline-item completed">
                             <div class="timeline-icon">
                               <i class="bi bi-check-circle-fill"></i>
                             </div>
-                            <div class="timeline-content">
-                              <h5>Order Confirmed</h5>
-                              <p>Your order has been received and confirmed</p>
-                              <span class="timeline-date">Feb 20, 2025 - 10:30 AM</span>
-                            </div>
-                          </div>
-
-                          <div class="timeline-item completed">
-                            <div class="timeline-icon">
-                              <i class="bi bi-check-circle-fill"></i>
-                            </div>
-                            <div class="timeline-content">
-                              <h5>Processing</h5>
-                              <p>Your order is being prepared for shipment</p>
-                              <span class="timeline-date">Feb 20, 2025 - 2:45 PM</span>
-                            </div>
-                          </div>
-
-                          <div class="timeline-item active">
-                            <div class="timeline-icon">
-                              <i class="bi bi-box-seam"></i>
-                            </div>
-                            <div class="timeline-content">
-                              <h5>Packaging</h5>
-                              <p>Your items are being packaged for shipping</p>
-                              <span class="timeline-date">Feb 20, 2025 - 4:15 PM</span>
-                            </div>
-                          </div>
-
-                          <div class="timeline-item">
-                            <div class="timeline-icon">
-                              <i class="bi bi-truck"></i>
-                            </div>
-                            <div class="timeline-content">
-                              <h5>In Transit</h5>
-                              <p>Expected to ship within 24 hours</p>
-                            </div>
+                            @if($pedido->estado_orden == 'Enviado')
+                              <div class="timeline-content">
+                                <h5>Orden Enviada</h5>
+                                <p>Su orden ha sido enviada</p>
+                                <p>{!!$pedido->nota!!}</p>
+                                <span class="timeline-date">{{$pedido->updated_at->format('M d, Y')}}</span>
+                              </div>
+                            @else
+                              <div class="timeline-item active">
+                                <div class="timeline-icon">
+                                  <i class="bi bi-box-seam"></i>
+                                </div>
+                                <div class="timeline-content">
+                                  <h5>Procesando</h5>
+                                  <p>Su orden esta siendo procesada</p>
+                                  <span class="timeline-date">{{$pedido->updated_at->format('M d, Y')}}</span>
+                                </div>
+                              </div>
+                            @endif
+                             
                           </div>
 
                           <div class="timeline-item">
@@ -150,104 +146,68 @@
                               <i class="bi bi-house-door"></i>
                             </div>
                             <div class="timeline-content">
-                              <h5>Delivery</h5>
-                              <p>Estimated delivery: Feb 22, 2025</p>
+                              <h5>Orden Completada</h5>
+                              <p>Hemos Verficado Tu compra</p>
+                              <span class="timeline-date">Fecha de Compra: {{$pedido->created_at->format('M d, Y')}}</span>
                             </div>
                           </div>
                         </div>
                       </div>
 
                       <!-- Order Details -->
-                      <div class="collapse order-details" id="details1">
+                      <div class="collapse order-details" id="details{{$pedido->id}}">
                         <div class="details-content">
                           <div class="detail-section">
-                            <h5>Order Information</h5>
-                            <div class="info-grid">
-                              <div class="info-item">
-                                <span class="label">Payment Method</span>
-                                <span class="value">Credit Card (**** 4589)</span>
-                              </div>
-                              <div class="info-item">
-                                <span class="label">Shipping Method</span>
-                                <span class="value">Express Delivery (2-3 days)</span>
-                              </div>
-                            </div>
+                            <h5>Informacion de la Orden</h5>
                           </div>
 
                           <div class="detail-section">
-                            <h5>Items (3)</h5>
+                            <h5>Productos: {{$cont_items}}</h5>
                             <div class="order-items">
-                              <div class="item">
-                                <img src="assets/img/product/product-1.webp" alt="Product" loading="lazy">
-                                <div class="item-info">
-                                  <h6>Lorem ipsum dolor sit amet</h6>
-                                  <div class="item-meta">
-                                    <span class="sku">SKU: PRD-001</span>
-                                    <span class="qty">Qty: 1</span>
-                                  </div>
-                                </div>
-                                <div class="item-price">$899.99</div>
-                              </div>
+                                @foreach($pedido->detalles as $detalle)
+                                      @php
+                                            $imagen_producto = $detalle->producto->imagenes->first();
+                                            $imagen = $imagen_producto->imagen ?? '';
+                                            $cont_items=$cont_items+1;
+                                      @endphp
+                                      <div class="item">
+                                            <img src="{{ asset('storage/' . $imagen)}}" alt="Product" loading="lazy">
+                                            <div class="item-info">
+                                                <h6>{{$detalle->producto->nombre}}</h6>
+                                                <div class="item-meta">
+                                                    <span class="sku">{{$detalle->producto->descripcion_corta}}</span>
+                                                    <span class="qty"><b>Cantidad: {{$detalle->cantidad}}</b></span>
+                                                </div>
+                                            </div>
+                                            <div class="item-price">{{$detalle->precio}} {{$pedido->divisa}}</div>
+                                      </div>
+                                @endforeach
 
-                              <div class="item">
-                                <img src="assets/img/product/product-2.webp" alt="Product" loading="lazy">
-                                <div class="item-info">
-                                  <h6>Consectetur adipiscing elit</h6>
-                                  <div class="item-meta">
-                                    <span class="sku">SKU: PRD-002</span>
-                                    <span class="qty">Qty: 2</span>
-                                  </div>
-                                </div>
-                                <div class="item-price">$599.95</div>
-                              </div>
-
-                              <div class="item">
-                                <img src="assets/img/product/product-3.webp" alt="Product" loading="lazy">
-                                <div class="item-info">
-                                  <h6>Sed do eiusmod tempor</h6>
-                                  <div class="item-meta">
-                                    <span class="sku">SKU: PRD-003</span>
-                                    <span class="qty">Qty: 1</span>
-                                  </div>
-                                </div>
-                                <div class="item-price">$129.99</div>
-                              </div>
                             </div>
                           </div>
 
                           <div class="detail-section">
-                            <h5>Price Details</h5>
+                            <h5>Detalles del Precio</h5>
                             <div class="price-breakdown">
                               <div class="price-row">
-                                <span>Subtotal</span>
-                                <span>$1,929.93</span>
-                              </div>
-                              <div class="price-row">
-                                <span>Shipping</span>
-                                <span>$15.99</span>
-                              </div>
-                              <div class="price-row">
-                                <span>Tax</span>
-                                <span>$159.98</span>
-                              </div>
-                              <div class="price-row total">
                                 <span>Total</span>
-                                <span>$2,105.90</span>
+                                <span>{{$pedido->total}} {{$pedido->divisa}}</span>
                               </div>
                             </div>
                           </div>
 
                           <div class="detail-section">
-                            <h5>Shipping Address</h5>
+                            <h5>Direccion de Envio</h5>
                             <div class="address-info">
-                              <p>Sarah Anderson<br>123 Main Street<br>Apt 4B<br>New York, NY 10001<br>United States</p>
-                              <p class="contact">+1 (555) 123-4567</p>
+                              <p>{{$pedido->direccion_envio}}</p>
+                              <p class="contact">Mas Informacion en el Recivo Enviado a tu Correo Muchas Gracias Por tu Compra!!</p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
+                  @endforeach
                    
                   </div>
 
