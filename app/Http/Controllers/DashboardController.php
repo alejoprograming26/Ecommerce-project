@@ -6,6 +6,7 @@ use App\Models\Ajuste;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Orden;
 
 class DashboardController extends Controller
 {
@@ -13,10 +14,11 @@ class DashboardController extends Controller
     {
         if (Auth::check()) {
             $ajuste = Ajuste::first();
-
-            return view('web.dashboard', compact('ajuste'));
+            $total_pedidos = Orden::where('usuario_id', Auth::id())->count();
+            $pedidos = Orden::with('usuario','detalles')->where('usuario_id',Auth::id())->get();
+            return view('web.dashboard', compact('ajuste', 'total_pedidos','pedidos'));
         } else {
-            return redirect()->route('web.login');
+            return redirect()->route('web.login')->with('info', 'Debe iniciar sesión para entrar a su cuenta.');
         }
 
     }

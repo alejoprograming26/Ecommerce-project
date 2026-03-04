@@ -106,7 +106,7 @@
                                     <p class="mb-0">Email: {{ Auth::user()->email ?? '' }}</p>
                                 </div>
                                 <div class="dropdown-body">
-                                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{url('/dashboard')}}">
                                         <i class="bi bi-person-circle me-2"></i>
                                         <span>Mi Perfil</span>
                                     </a>
