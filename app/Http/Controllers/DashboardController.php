@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Orden;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -97,5 +98,39 @@ class DashboardController extends Controller
             return redirect()->route('web.login')->with('info', 'Debe iniciar sesión para entrar a su cuenta.');
         }
 
+    }
+
+    public function informacion_personal(Request $request)
+    {
+      //return response()->json($request->all());
+      $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,'.Auth::user()->id,
+      ]);
+      $user = User::find(Auth::id());
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->save();
+
+      return redirect()->route('web.ajustes.index')->with('success', 'Información personal actualizada correctamente.');
+
+    }
+
+    public function seguridad(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return redirect()->route('web.ajustes.index')->with('error', 'La contraseña actual es incorrecta.');
+        }
+
+        $user = User::find(Auth::id());
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('web.ajustes.index')->with('success', 'Contraseña actualizada correctamente.');
     }
 }

@@ -85,8 +85,8 @@ Route::post('/carrito/limpiar', [App\Http\Controllers\CarritoController::class, 
 
 //Ajuste Clientes
 Route::get('/ajustes', [App\Http\Controllers\DashboardController::class, 'ajustes'])->name('web.ajustes.index');
-Route::get('/ajustes/informacion_personal', [App\Http\Controllers\DashboardController::class, 'informacion_personal'])->name('web.ajustes.informacion_personal');
-Route::get('/ajustes/seguridad', [App\Http\Controllers\DashboardController::class, 'seguridad'])->name('web.ajustes.seguridad');
+Route::put('/ajustes/informacion_personal', [App\Http\Controllers\DashboardController::class, 'informacion_personal'])->name('web.ajustes.informacion_personal');
+Route::put('/ajustes/seguridad', [App\Http\Controllers\DashboardController::class, 'seguridad'])->name('web.ajustes.seguridad');
 
 // Ruta Paypal
 Route::post('/paypal/pago', [App\Http\Controllers\PaypalController::class, 'pago'])->name('web.paypal.pago');

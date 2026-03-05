@@ -61,19 +61,39 @@
                     <h2>Ajustes de Cuenta</h2>
                   </div>
 
+                  @if (session('success'))
+                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          {{ session('success') }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  @endif
+
+                  @if ($errors->any())
+                      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <ul class="mb-0">
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  @endif
+
                   <div class="settings-content">
                     <!-- Personal Information -->
                     <div class="settings-section" data-aos="fade-up">
                       <h3>Información Personal</h3>
-                      <form class="php-email-form settings-form">
+                      <form class="settings-form"  action="{{ url('/ajustes/informacion_personal') }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <div class="row g-3">
                           <div class="col-md-6">
                             <label for="firstName" class="form-label">Nombre del Usuario</label>
-                            <input type="text" class="form-control" id="firstName" value="{{Auth::user()->name}}" required="">
+                            <input type="text" class="form-control" id="firstName" name="name" value="{{Auth::user()->name}}" required="">
                           </div>
                           <div class="col-md-6">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="{{Auth::user()->email}}" required="">
+                            <input type="email" class="form-control" id="email" name="email" value="{{Auth::user()->email}}" required="">
                           </div>
                         </div>
 
@@ -86,15 +106,32 @@
                     <!-- Security Settings -->
                     <div class="settings-section" data-aos="fade-up" data-aos-delay="200">
                       <h3>Seguridad</h3>
-                      <form class="php-email-form settings-form">
+                      <form class="settings-form" action="{{ url('/ajustes/seguridad') }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <div class="row g-3">
+                          <div class="col-md-12">
+                            <label for="currentPassword" class="form-label">Contraseña Actual</label>
+                            <input type="password" class="form-control" id="currentPassword" name="current_password" required="">
+                            @error('current_password')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                          </div>
+
                           <div class="col-md-6">
                             <label for="newPassword" class="form-label">Nueva Contraseña</label>
-                            <input type="password" class="form-control" id="newPassword" required="">
+                            <input type="password" class="form-control" id="newPassword" name="password" required="">
+                            @error('password')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                           </div>
+
                           <div class="col-md-6">
                             <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
-                            <input type="password" class="form-control" id="confirmPassword" required="">
+                            <input type="password" class="form-control" id="confirmPassword" name="password_confirmation" required="">
+                            @error('password_confirmation')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                           </div>
                         </div>
 
