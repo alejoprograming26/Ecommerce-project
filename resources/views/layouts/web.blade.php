@@ -118,9 +118,9 @@
                                         <i class="bi bi-heart me-2"></i>
                                         <span>Mis Favoritos</span>
                                     </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="account.html">
+                                    <a class="dropdown-item d-flex align-items-center" href="{{url('/ajustes')}}">
                                         <i class="bi bi-gear me-2"></i>
-                                        <span>Configuración</span>
+                                        <span>Ajustes</span>
                                     </a>
                                 </div>
                                 <div class="dropdown-footer">

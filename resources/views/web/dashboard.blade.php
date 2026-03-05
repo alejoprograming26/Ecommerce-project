@@ -211,6 +211,17 @@
                    
                   </div>
 
+                  @if ($pedidos->hasPages())
+                      <div class="d-flex justify-content-between align-items-center mt-4">
+                          <div class="text-muted">
+                              Mostrando {{ $pedidos->firstItem() }} a {{ $pedidos->lastItem() }} de {{ $pedidos->total() }} pedidos
+                          </div>
+                          <div>
+                              {{ $pedidos->links('pagination::bootstrap-4') }}
+                          </div>
+                      </div>
+                  @endif
+
                 </div>
               </div>
             </div>

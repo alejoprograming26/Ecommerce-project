@@ -15,8 +15,8 @@ class DashboardController extends Controller
         if (Auth::check()) {
             $ajuste = Ajuste::first();
             $total_pedidos = Orden::where('usuario_id', Auth::id())->count();
-            $pedidos = Orden::with('usuario','detalles')->where('usuario_id',Auth::id())->get();
-            return view('web.dashboard', compact('ajuste', 'total_pedidos','pedidos'));
+            $pedidos = Orden::with('usuario', 'detalles')->where('usuario_id', Auth::id())->latest()->paginate(3);
+            return view('web.dashboard', compact('ajuste', 'total_pedidos', 'pedidos'));
         } else {
             return redirect()->route('web.login')->with('info', 'Debe iniciar sesión para entrar a su cuenta.');
         }
@@ -83,5 +83,19 @@ class DashboardController extends Controller
         Auth::login($user);
 
         return redirect('/dashboard');
+    }
+
+    public function ajustes()
+    {
+        if (Auth::check()) {
+            $ajuste = Ajuste::first();
+            $total_pedidos = Orden::where('usuario_id', Auth::id())->count();
+            $pedidos = Orden::with('usuario', 'detalles')->where('usuario_id', Auth::id())->latest()->paginate(3);
+
+            return view('web.ajustes', compact('ajuste', 'total_pedidos', 'pedidos'));
+        } else {
+            return redirect()->route('web.login')->with('info', 'Debe iniciar sesión para entrar a su cuenta.');
+        }
+
     }
 }

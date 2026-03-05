@@ -43,6 +43,10 @@ class ProductoFavoritoController extends Controller
      */
     public function store(Request $request)
     {
+        if (! Auth::check()) {
+            return redirect()->route('web.login')->with('info', 'Debe iniciar sesión para agregar a favoritos');
+        }
+
         request()->validate([
             'producto_id' => 'required|exists:productos,id',
         ]);
@@ -50,7 +54,7 @@ class ProductoFavoritoController extends Controller
         if ($productoFavorito = ProductoFavorito::where('usuario_id', Auth::user()->id)->where('producto_id', $request->producto_id)->first()) {
             $redirectUrl = $request->input('redirect_url', url()->previous());
 
-            return redirect($redirectUrl)->with('info', 'El Producto ya esta agregado a favoritos');
+            return redirect($redirectUrl)->with('info', 'El Producto ya está agregado a favoritos');
         }
         $productoFavorito = new ProductoFavorito;
         $productoFavorito->usuario_id = Auth::user()->id;
