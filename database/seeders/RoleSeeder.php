@@ -14,76 +14,66 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create([
-        'name'=>'SUPER ADMIN',
-       ]);
-       Role::create([
-        'name'=>'ADMINISTRADOR',
-
-       ]);
-       Role::create([
-        'name'=>'VENDEDOR',
-       ]);
-       Role::create([
-        'name'=>'CONTABILIDAD',
-       ]);
-       Role::create([
-        'name'=>'CLIENTE',
-       ]);
+        $super_admin = Role::create(['name'=>'SUPER ADMIN',]);
+        Role::create(['name'=>'ADMINISTRADOR',]);
+        Role::create(['name'=>'VENDEDOR',]);
+        Role::create(['name'=>'CONTABILIDAD',]);
+        Role::create(['name'=>'CLIENTE',]);
 
        // Módulo Admin
-       Permission::create(['name'=>'Dashboard del Administrador']);
+       Permission::create(['name'=>'Dashboard del Administrador'])->syncRoles($super_admin);
+
 
        // Módulo Ajustes
-       Permission::create(['name'=>'Ajustes del Sistema']);
-       Permission::create(['name'=>'Actualizar Ajustes']);
+       Permission::create(['name'=>'Ajustes del Sistema'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Actualizar Ajustes'])->syncRoles($super_admin);
 
        // Módulo Roles
-       Permission::create(['name'=>'Ver Listado de Roles']);
-       Permission::create(['name'=>'Crear Rol']);
-       Permission::create(['name'=>'Guardar Rol']);
-       Permission::create(['name'=>'Ver Detalle de Rol']);
-       Permission::create(['name'=>'Editar Rol']);
-       Permission::create(['name'=>'Actualizar Rol']);
-       Permission::create(['name'=>'Eliminar Rol']);
-       Permission::create(['name'=>'Ver Permisos de Rol']);
-       Permission::create(['name'=>'Actualizar Permisos de Rol']);
+       Permission::create(['name'=>'Ver Listado de Roles'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Crear Rol'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Guardar Rol'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Ver Detalle de Rol'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Editar Rol'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Actualizar Rol'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Eliminar Rol'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Ver Permisos de Rol'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Actualizar Permisos de Rol'])->syncRoles($super_admin);
 
        // Módulo Usuarios
-       Permission::create(['name'=>'Ver Listado de Usuarios']);
-       Permission::create(['name'=>'Crear Usuario']);
-       Permission::create(['name'=>'Guardar Usuario']);
-       Permission::create(['name'=>'Ver Detalle de Usuario']);
-       Permission::create(['name'=>'Editar Usuario']);
-       Permission::create(['name'=>'Actualizar Usuario']);
-       Permission::create(['name'=>'Eliminar Usuario']);
-       Permission::create(['name'=>'Restaurar Usuario']);
+       Permission::create(['name'=>'Ver Listado de Usuarios'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Crear Usuario'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Guardar Usuario'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Ver Detalle de Usuario'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Editar Usuario'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Actualizar Usuario'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Eliminar Usuario'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Restaurar Usuario'])->syncRoles($super_admin);
 
        // Módulo Categorias
-       Permission::create(['name'=>'Ver Listado de Categorias']);
-       Permission::create(['name'=>'Crear Categoria']);
-       Permission::create(['name'=>'Guardar Categoria']);
-       Permission::create(['name'=>'Ver Detalle de Categoria']);
-       Permission::create(['name'=>'Editar Categoria']);
-       Permission::create(['name'=>'Actualizar Categoria']);
-       Permission::create(['name'=>'Eliminar Categoria']);
+       Permission::create(['name'=>'Ver Listado de Categorias'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Crear Categoria'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Guardar Categoria'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Ver Detalle de Categoria'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Editar Categoria'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Actualizar Categoria'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Eliminar Categoria'])->syncRoles($super_admin);
 
        // Módulo Productos
-       Permission::create(['name'=>'Ver Listado de Productos']);
-       Permission::create(['name'=>'Crear Producto']);
-       Permission::create(['name'=>'Guardar Producto']);
-       Permission::create(['name'=>'Ver Detalle de Producto']);
-       Permission::create(['name'=>'Editar Producto']);
-       Permission::create(['name'=>'Actualizar Producto']);
-       Permission::create(['name'=>'Eliminar Producto']);
-       Permission::create(['name'=>'Ver Imagenes de Producto']);
-       Permission::create(['name'=>'Subir Imagen de Producto']);
-       Permission::create(['name'=>'Eliminar Imagen de Producto']);
+       Permission::create(['name'=>'Ver Listado de Productos'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Crear Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Guardar Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Ver Detalle de Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Editar Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Actualizar Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Eliminar Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Ver Imagenes de Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Subir Imagen de Producto'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Eliminar Imagen de Producto'])->syncRoles($super_admin);
 
        // Módulo Pedidos
-       Permission::create(['name'=>'Ver Listado de Pedidos']);
-       Permission::create(['name'=>'Crear Pedido']);
-       Permission::create(['name'=>'Guardar Pedido']);
+       Permission::create(['name'=>'Ver Listado de Pedidos'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Crear Pedido'])->syncRoles($super_admin);
+       Permission::create(['name'=>'Guardar Pedido'])->syncRoles($super_admin);
 
     }
 }

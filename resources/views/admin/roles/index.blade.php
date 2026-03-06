@@ -43,6 +43,10 @@
                                             class="btn btn-sm btn-success">
                                             <i class="bi bi-pencil-square"></i> Editar
                                         </a>
+                                        <a href="{{ url('/admin/roles/' . $role->id) }}/permisos" title="Editar Rol"
+                                            class="btn btn-sm btn-warning">
+                                            <i class="bi bi-shield-fill-check"></i> Permisos
+                                        </a>
                                         <form action="{{ url('/admin/roles/' . $role->id) }}" method="POST"
                                             class="delete-form" style="display: inline;"
                                             data-item-name="el rol '{{ $role->name }}'">
