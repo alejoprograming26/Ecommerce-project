@@ -25,6 +25,8 @@ Route::get('admin/roles/{id}', [App\Http\Controllers\RoleController::class, 'sho
 Route::get('admin/roles/{id}/edit', [App\Http\Controllers\RoleController::class, 'edit'])->middleware('auth')->name('admin.roles.edit');
 Route::put('admin/roles/{id}', [App\Http\Controllers\RoleController::class, 'update'])->middleware('auth')->name('admin.roles.update');
 Route::delete('admin/roles/{id}/', [App\Http\Controllers\RoleController::class, 'destroy'])->middleware('auth')->name('admin.roles.destroy');
+Route::get('admin/roles/{id}/permisos', [App\Http\Controllers\RoleController::class, 'permisos'])->middleware('auth')->name('admin.roles.permisos');
+Route::put('admin/roles/{id}/update_permisos', [App\Http\Controllers\RoleController::class, 'update_permisos'])->middleware('auth')->name('admin.roles.update_permisos');
 
 // Usuarios
 Route::get('admin/usuarios', [App\Http\Controllers\UsuarioController::class, 'index'])->middleware('auth')->name('admin.usuarios.index');
