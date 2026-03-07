@@ -88,7 +88,23 @@ class RoleController extends Controller
     public function permisos($id)
     {
         $rol = Role::find($id);
-        $permisos = Permission::all();
+        $permisos = Permission::all()->groupBy(function ($permission) {
+
+            if(stripos($permission->name, 'ajuste') !== false) { return 'Ajustes del Sistema';}
+            elseif(stripos($permission->name, 'admin') !== false) { return 'Vista del Administrador';}
+            elseif(stripos($permission->name, 'rol') !== false) { return 'Roles del Sistema';}
+            elseif(stripos($permission->name, 'usuario') !== false) { return 'Usuarios del Sistema';}
+            elseif(stripos($permission->name, 'categoria') !== false) { return 'Categorias del Sistema';}
+            elseif(stripos($permission->name, 'producto') !== false) { return 'Productos del Sistema';}
+            elseif(stripos($permission->name, 'proveedor') !== false) { return 'Proveedores del Sistema';}
+            elseif(stripos($permission->name, 'pedido') !== false) { return 'Pedidos del Sistema';}
+        });
         return view('admin.roles.permisos', compact('rol', 'permisos'));
+    }
+    public function update_permisos(Request $request, $id)
+    {
+       $rol = Role::find($id);
+       $rol->permissions()->sync($request->permisos);
+       return redirect()->route('admin.roles.index')->with('success', 'Permisos actualizados con exito');
     }
 }
