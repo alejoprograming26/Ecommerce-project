@@ -29,8 +29,8 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            {{-- <img src="./assets/compiled/svg/logo.svg" alt="Logo"
-                                    srcset="" --}}Admin</a>
+                            <img src="{{ asset('/assets/compiled/svg/logo.svg') }}" alt="Logo"
+                                srcset="">Admin</a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -152,7 +152,7 @@
                             <ul class="submenu ">
 
                                 <li class="submenu-item ">
-                                    <a href="account-profile.html" class="submenu-link">Perfil</a>
+                                    <a href="{{url('admin/usuarios/'.Auth::user()->id.'/perfil')}}" class="submenu-link">Perfil</a>
 
                                 </li>
 

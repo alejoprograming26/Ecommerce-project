@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Ajuste;
 
 class UsuarioController extends Controller
 {
@@ -154,5 +155,18 @@ class UsuarioController extends Controller
        $usuario->save();
     
        return redirect()->route('admin.usuarios.index')->with('success', 'Usuario restaurado exitosamente');
+    }
+
+    public function perfil()
+    {
+        $usuario = Auth::user();
+        $ajuste = Ajuste::first();
+        return view('admin.usuarios.perfil', compact('usuario', 'ajuste'));
+    }
+
+    public function update_perfil(Request $request, $id)
+    {
+        //return response()->json($request->all());
+
     }
 }
