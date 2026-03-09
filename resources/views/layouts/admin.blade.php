@@ -71,7 +71,7 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-
+                        @can('Dashboard del Administrador')
                         <li class="sidebar-item {{ request()->is('admin') ? 'active' : '' }} ">
                             <a href="{{ url('/admin') }}" class='sidebar-link'>
                                 <i class="bi bi-house-fill"></i>
@@ -80,6 +80,8 @@
 
 
                         </li>
+                        @endcan
+                        @can('Ver Listado de Roles')
                         <li class="sidebar-item {{ request()->is('admin/role*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/roles') }}" class='sidebar-link'>
                                 <i class="bi bi-person-fill-lock"></i>
@@ -88,6 +90,8 @@
 
 
                         </li>
+                        @endcan
+                        @can('Ver Listado de Usuarios')
                         <li class="sidebar-item {{ request()->is('admin/usuario*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/usuarios') }}" class='sidebar-link'>
                                 <i class="bi bi-people-fill"></i>
@@ -96,6 +100,8 @@
 
 
                         </li>
+                        @endcan
+                        @can('Ver Listado de Categorias')
                         <li class="sidebar-item {{ request()->is('admin/categoria*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/categorias') }}" class='sidebar-link'>
                                 <i class="bi bi-handbag-fill"></i>
@@ -104,6 +110,8 @@
 
 
                         </li>
+                        @endcan
+                        @can('Ver Listado de Productos')
                         <li class="sidebar-item {{ request()->is('admin/producto*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/productos') }}" class='sidebar-link'>
                                 <i class="bi bi-box-fill"></i>
@@ -112,7 +120,9 @@
 
 
                         </li>
-                           <li class="sidebar-item {{ request()->is('admin/pedido*') ? 'active' : '' }} ">
+                        @endcan
+                        @can('Ver Listado de Pedidos')
+                        <li class="sidebar-item {{ request()->is('admin/pedido*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/pedidos') }}" class='sidebar-link'>
                                 <i class="bi bi-card-checklist"></i>
                                 <span>Pedidos</span>
@@ -120,15 +130,17 @@
 
 
                         </li>
-
+                        @endcan
 
                         <li class="sidebar-title">Ajustes</li>
-
+                        @can('Ajustes del Sistema')
                         <li class="sidebar-item {{ request()->is('admin/ajuste*') ? 'active' : '' }} ">
                             <a href="{{ url('/admin/ajustes') }}" class='sidebar-link'>
                                 <i class="bi bi-gear-fill"></i>
                                 <span>Configuracion</span>
                             </a>
+                        </li>
+                        @endcan
 
 
                         <li class="sidebar-item  has-sub">

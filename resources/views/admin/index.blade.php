@@ -35,6 +35,7 @@
     </div>
 
     <div class="row">
+        @can('Ver Listado de Roles')
         <div class="col-12 col-md-6 col-lg-3 mb-4">
             <a href="{{ route('admin.roles.index') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
@@ -53,7 +54,8 @@
                 </div>
             </a>
         </div>
-
+        @endcan
+        @can('Ver Listado de Usuarios')
         <div class="col-12 col-md-6 col-lg-3 mb-4">
             <a href="{{ route('admin.usuarios.index') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
@@ -71,7 +73,8 @@
                 </div>
             </a>
         </div>
-
+        @endcan
+        @can('Ver Listado de Categorias')
         <div class="col-12 col-md-6 col-lg-3 mb-4">
             <a href="{{ route('admin.categorias.index') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
@@ -89,7 +92,8 @@
                 </div>
             </a>
         </div>
-
+        @endcan
+        @can('Ver Listado de Productos')
         <div class="col-12 col-md-6 col-lg-3 mb-4">
             <a href="{{ url('/admin/productos') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
@@ -107,8 +111,9 @@
                 </div>
             </a>
         </div>
-    </div>
-    <div class="row">
+        @endcan
+
+        @can('Ver Listado de Pedidos')
         <div class="col-12 col-md-6 col-lg-3 mb-4">
             <a href="{{ route('admin.pedidos.index') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
@@ -126,7 +131,8 @@
                 </div>
             </a>
         </div>
-
+        @endcan
+        @can('Ver Listado de Pedidos')
         <div class="col-12 col-md-6 col-lg-3 mb-4">
             <a href="{{ route('admin.pedidos.index') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
@@ -144,7 +150,9 @@
                 </div>
             </a>
         </div>
-         <div class="col-12 col-md-6 col-lg-3 mb-4">
+        @endcan
+        @can('Ver Listado de Pedidos')
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
             <a href="{{ route('admin.pedidos.index') }}" class="text-decoration-none-custom">
                 <div class="card h-100 shadow-sm border-0 card-hover">
                     <div class="card-body d-flex align-items-center px-4 py-4">
@@ -160,7 +168,8 @@
                     </div>
                 </div>
             </a>
-
+        </div>
+        @endcan
 
     </div>
 @endsection
