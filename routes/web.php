@@ -35,6 +35,7 @@ Route::post('admin/usuarios/create', [App\Http\Controllers\UsuarioController::cl
 Route::get('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class, 'show'])->middleware('auth','can:Ver Detalle de Usuario')->name('admin.usuarios.show');
 Route::get('admin/usuarios/{id}/perfil', [App\Http\Controllers\UsuarioController::class, 'perfil'])->middleware('auth')->name('admin.usuarios.perfil');
 Route::put('admin/usuarios/{id}/update_perfil', [App\Http\Controllers\UsuarioController::class, 'update_perfil'])->middleware('auth')->name('admin.usuarios.update_perfil');
+Route::put('admin/usuarios/{id}/update_password', [App\Http\Controllers\UsuarioController::class, 'update_password'])->middleware('auth')->name('admin.usuarios.update_password');
 Route::get('admin/usuarios/{id}/edit', [App\Http\Controllers\UsuarioController::class, 'edit'])->middleware('auth','can:Editar Usuario')->name('admin.usuarios.edit');
 Route::put('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class, 'update'])->middleware('auth','can:Actualizar Usuario')->name('admin.usuarios.update');
 Route::delete('admin/usuarios/{id}', [App\Http\Controllers\UsuarioController::class, 'destroy'])->middleware('auth','can:Eliminar Usuario')->name('admin.usuarios.destroy');
